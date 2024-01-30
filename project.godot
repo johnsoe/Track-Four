@@ -11,8 +11,22 @@ config_version=5
 [application]
 
 config/name="TrackFour"
+run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Events="*res://scripts/events.gd"
+
+[display]
+
+window/size/viewport_width=368
+window/size/viewport_height=740
+
+[layer_names]
+
+2d_physics/layer_1="Terrain"
 
 [rendering]
 
