@@ -34,6 +34,7 @@ func _process(delta):
 
 func draw_next_row(row: int):
 	last_draw_row = row
+	set_cell(0, Vector2i(-1, row), 1, Vector2i(10, 14))
 	for x in range(0, tileset_width * 4):
 		var track = x / tileset_width
 		var atlas_coords: Vector2i
