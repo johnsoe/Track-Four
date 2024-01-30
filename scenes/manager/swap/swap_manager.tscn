@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt7pec2hqs2wj"]
+
+[ext_resource type="Script" path="res://scenes/manager/swap/swap_manager.gd" id="1_j3r6n"]
+
+[node name="SwapManager" type="Node"]
+script = ExtResource("1_j3r6n")

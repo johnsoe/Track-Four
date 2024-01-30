@@ -2,8 +2,8 @@ extends TileMap
 class_name TrackTileMap
 
 @export var vertical_offset: int
-@export var tileset_width: int
 @export var atlas_x_start: int
+@export var track_model: TrackModel
 
 var camera_position_offset: Vector2
 var last_draw_row: int
@@ -35,14 +35,14 @@ func _process(delta):
 func draw_next_row(row: int):
 	last_draw_row = row
 	set_cell(0, Vector2i(-1, row), 1, Vector2i(10, 14))
-	for x in range(0, tileset_width * 4):
-		var track = x / tileset_width
+	for x in range(0, track_model.tile_width * 4):
+		var track = x / track_model.tile_width
 		var atlas_coords: Vector2i
-		if x % tileset_width == 0:
+		if x % track_model.tile_width == 0:
 			atlas_coords = Vector2i(atlas_x_start + (track * 6), 9)
-		elif x % tileset_width == tileset_width - 1:
+		elif x % track_model.tile_width == track_model.tile_width - 1:
 			atlas_coords = Vector2i(10, 14)
-		elif x % tileset_width == tileset_width - 2:
+		elif x % track_model.tile_width == track_model.tile_width - 2:
 			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
 		else:
 			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
@@ -50,7 +50,7 @@ func draw_next_row(row: int):
 
 
 func erase_bottom_row(row: int):
-	for x in range(0, tileset_width * 4):
+	for x in range(-1, track_model.tile_width * 4):
 		erase_cell(0, Vector2i(x, row))
 
 
@@ -59,5 +59,10 @@ func _input(event):
 		if event.is_pressed():
 			var position = event.position
 			var tile_clicked = local_to_map(position)
-			var track = tile_clicked.x / tileset_width
-			Events.on_track_clicked.emit(track)
+			# This is dirty hack for now
+			if tile_clicked.x == 0:
+				var dict = {0:1, 1:0}
+				Events.on_swap_tracks.emit(dict)
+			else:
+				var track = tile_clicked.x / track_model.tile_width
+				Events.on_track_clicked.emit(track)

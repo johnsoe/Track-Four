@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TrackModel" load_steps=2 format=3 uid="uid://crda2whdtmt2"]
+
+[ext_resource type="Script" path="res://scenes/track/track_model.gd" id="1_jnl8c"]
+
+[resource]
+script = ExtResource("1_jnl8c")
+tile_width = 12
