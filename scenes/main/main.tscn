@@ -33,7 +33,7 @@ position = Vector2(297, 512)
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
 [node name="SwapManager" parent="." node_paths=PackedStringArray("balls", "track_manager") instance=ExtResource("4_plhv0")]
-balls = [NodePath("../BallContainer/Ball1"), NodePath("../BallContainer/Ball2")]
+balls = [NodePath(""), NodePath("")]
 track_manager = NodePath("../TrackManager")
 
 [node name="SwapSpawnManager" parent="." node_paths=PackedStringArray("distance_manager", "track_manager", "camera_manager") instance=ExtResource("5_amiyl")]
@@ -61,36 +61,3 @@ vertical_offset = 3
 atlas_x_start = 6
 track_model = ExtResource("5_08yfv")
 camera_manager = NodePath("../../CameraManager")
-
-[node name="BallContainer" type="Node" parent="."]
-
-[node name="Ball1" parent="BallContainer" instance=ExtResource("5_62d2l")]
-visible = false
-position = Vector2(92, 600)
-vert_speed = 100
-x_speed = -400
-sprite_override = ExtResource("6_xxwom")
-
-[node name="Ball2" parent="BallContainer" instance=ExtResource("5_62d2l")]
-visible = false
-position = Vector2(280, 600)
-track_id = 1
-vert_speed = 100
-x_speed = -400
-sprite_override = ExtResource("7_fcp1f")
-
-[node name="Ball3" parent="BallContainer" instance=ExtResource("5_62d2l")]
-visible = false
-position = Vector2(480, 600)
-track_id = 2
-vert_speed = 100
-x_speed = -400
-sprite_override = ExtResource("12_k076o")
-
-[node name="Ball4" parent="BallContainer" instance=ExtResource("5_62d2l")]
-visible = false
-position = Vector2(680, 600)
-track_id = 3
-vert_speed = 100
-x_speed = -400
-sprite_override = ExtResource("13_suwhj")

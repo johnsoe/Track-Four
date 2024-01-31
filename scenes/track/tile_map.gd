@@ -69,15 +69,19 @@ func erase_bottom_row(row: int):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			var position = event.position
+			var position = get_global_mouse_position()
 			var tile_clicked = local_to_map(position)
+			var tile_data = get_cell_tile_data(0, tile_clicked)
+			if tile_data == null:
+				return
+				
+			var track_id = tile_data.get_custom_data("track_id")
 			# This is dirty hack for now
 			if tile_clicked.x == 0:
 				var dict = {0:1, 1:0}
 				Events.on_swap_tracks.emit(dict)
 			else:
-				var track = tile_clicked.x / current_width
-				Events.on_track_clicked.emit(track)
+				Events.on_track_clicked.emit(track_id)
 
 
 func handle_level_update(level: int):
