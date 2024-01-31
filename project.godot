@@ -21,8 +21,8 @@ Events="*res://scripts/events.gd"
 
 [display]
 
-window/size/viewport_width=368
-window/size/viewport_height=740
+window/size/viewport_width=600
+window/size/viewport_height=1024
 
 [layer_names]
 

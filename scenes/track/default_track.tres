@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_jnl8c")
-tile_width = 12
+width_level_1 = 12
+width_level_2 = 9
+width_level_3 = 6

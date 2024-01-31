@@ -1,6 +1,6 @@
 extends Resource
 class_name TrackModel
 
-#TODO: Add dynamic resource gen based on screen width/dimen
-#For now, let's hard-code track resource values
-@export var tile_width: int
+@export var width_level_1: int
+@export var width_level_2: int
+@export var width_level_3: int
