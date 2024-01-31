@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name PlayerBall
 
 @export var track_id: int
 @export var vert_speed: int
@@ -22,4 +23,3 @@ func handle_track_click(track: int):
 		return 
 	
 	x_speed *= -1
-	

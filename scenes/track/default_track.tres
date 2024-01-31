@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_jnl8c")
-width_level_1 = 12
-width_level_2 = 9
-width_level_3 = 6
+width_level_1 = 15
+width_level_2 = 11
+width_level_3 = 8
+edge_buffer = 3

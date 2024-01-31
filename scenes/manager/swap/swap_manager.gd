@@ -19,13 +19,9 @@ func swap_tracks(swaps: Dictionary):
 		var to = swaps[key]
 		track_positions[to] = old_positions[from]
 	
-	print(track_positions)
 	update_ball_positions()
 
 func update_ball_positions():
-	var y = balls[0].global_position.y
 	for i in range(0, 2):
 		var ball = balls[track_positions[i]]
-		var x_position = track_manager.get_track_position(i)
-		if x_position != null:
-			ball.global_position = Vector2(x_position, y)
+		ball.global_position = track_manager.get_track_spawn_position(i, TrackManager.LOCATION.BOTTOM)
