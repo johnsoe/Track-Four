@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://drxv1hmvosxkh"]
+[gd_scene load_steps=7 format=3 uid="uid://drxv1hmvosxkh"]
+
+[ext_resource type="Script" path="res://scenes/portal/portal.gd" id="1_swvna"]
+[ext_resource type="Texture2D" uid="uid://csw1kke27nbyj" path="res://scenes/portal/yellow_body_square.png" id="2_j7nxd"]
+[ext_resource type="Texture2D" uid="uid://cusharie6ue0c" path="res://scenes/portal/green_body_square.png" id="3_ff5a8"]
+[ext_resource type="Texture2D" uid="uid://dop0m7h4rlhkj" path="res://scenes/portal/red_body_square.png" id="4_1kd2g"]
+[ext_resource type="Texture2D" uid="uid://de5boa3vgvwga" path="res://scenes/portal/blue_body_square.png" id="5_njs43"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_737nt"]
 
 [node name="Portal" type="Node2D"]
+scale = Vector2(2, 0.125)
+script = ExtResource("1_swvna")
+portal_sprites = Array[CompressedTexture2D]([ExtResource("2_j7nxd"), ExtResource("3_ff5a8"), ExtResource("4_1kd2g"), ExtResource("5_njs43")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_ff5a8")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_737nt")

@@ -20,7 +20,7 @@ func swap_tracks(swaps: Dictionary):
 		track_positions[to] = old_positions[from]
 	
 	print(track_positions)
-	update_ball_positions()	
+	update_ball_positions()
 
 func update_ball_positions():
 	var y = balls[0].global_position.y

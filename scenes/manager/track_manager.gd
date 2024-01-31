@@ -2,7 +2,7 @@ extends Node
 class_name TrackManager
 
 @export var track_model: TrackModel
-@onready var tilemap = $TileMap
+@onready var tilemap: TrackTileMap = $TileMap
 
 var mid_track_position: Array[float]
 

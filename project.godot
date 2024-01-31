@@ -27,6 +27,7 @@ window/size/viewport_height=740
 [layer_names]
 
 2d_physics/layer_1="Terrain"
+2d_physics/layer_2="Player"
 
 [rendering]
 
