@@ -22,7 +22,6 @@ func _process(delta):
 	if portal_end_data == Vector2.ZERO:
 		return
 	
-	print(str(portal_end_data.y) + " " + str(track_manager.get_bottom_spawn_y()))
 	if portal_end_data.y > track_manager.get_bottom_spawn_y():
 		spawn_balls(portal_end_data.x)
 		portal_end_data = Vector2.ZERO
@@ -58,7 +57,6 @@ func handle_level_transition_complete(lvl: int):
 
 
 func spawn_balls(lvl: int):
-	print("SPAWN")
 	for i in range(0, lvl + 1):
 		var track_position = track_manager.get_track_spawn_position(i, lvl, TrackManager.LOCATION.BOTTOM)
 		var ball_inst = ball_scene.instantiate() as PlayerBall
