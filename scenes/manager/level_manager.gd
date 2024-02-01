@@ -17,7 +17,7 @@ func handle_distance_update(distance: int):
 	
 	# Hard coded level values, not ideal.
 	if level_thresholds[0] == distance:
-		Events.emit_begin_level_animation(2)
+		Events.emit_begin_level_transition(2)
 	elif level_thresholds[1] == distance:
-		Events.emit_begin_level_animation(3)
+		Events.emit_begin_level_transition(3)
 		

@@ -6,7 +6,6 @@ extends Node
 @export var ball_scene: PackedScene
 @export var ball_sprites: Array[CompressedTexture2D]
 
-
 func _ready():
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT

@@ -2,6 +2,7 @@ extends Node
 class_name TrackManager
 
 enum LOCATION { TOP, BOTTOM }
+enum DRAW_MODE { STANDARD, TRANSITION }
 
 @export var track_model: TrackModel
 @export var top_spawn_offset_percent: float
@@ -11,10 +12,11 @@ enum LOCATION { TOP, BOTTOM }
 @onready var tilemap: TrackTileMap = $TileMap
 
 var mid_track_position: Dictionary
-
-#TODO: consolidate logic in the tilemap and manager
+var current_level: int = 1
 
 func _ready():
+	Events.begin_level_transition.connect(handle_level_update)
+	tilemap.transition_complete.connect(handle_transition_complete)
 	mid_track_position = {
 		1: [0.0, 0.0],
 		2: [0.0, 0.0, 0.0],
@@ -23,7 +25,6 @@ func _ready():
 	for i in range(1, 4):
 		calculate_track_positions_by_level(i)
 	
-	print(mid_track_position)
 
 func get_track_spawn_position(track: int, level: int, spawn_location: LOCATION):
 	if track < 0 || track > mid_track_position.size() || level < 1 || level > 3:
@@ -79,4 +80,10 @@ func get_track_width(level: int):
 	return base_width * tilemap.cell_quadrant_size
 
 func handle_level_update(level: int):
-	pass
+	current_level = level
+	tilemap.draw_mode = DRAW_MODE.TRANSITION
+
+
+func handle_transition_complete():
+	tilemap.draw_mode = DRAW_MODE.STANDARD
+	Events.emit_complete_level_transition(current_level)

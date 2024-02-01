@@ -1,29 +1,30 @@
 extends TileMap
 class_name TrackTileMap
 
+signal transition_complete()
+
 @export var vertical_offset: int
 @export var atlas_x_start: int
 @export var track_model: TrackModel
 @export var camera_manager: CameraManager
 
 var camera_position_offset: Vector2
-var last_draw_row: int
+var top_draw_row: int
+var bottom_erase_row: int
 
 var total_width: int
-var target_width: int
 var current_width: int
 var edge_buffer: int
 
-func _ready():
-	last_draw_row = 0
+var draw_mode: TrackManager.DRAW_MODE
+var prev_draw_mode: TrackManager.DRAW_MODE
 
+func _ready():
+	top_draw_row = 0
 	camera_position_offset = camera_manager.calculate_camera_offset()
 	current_width = track_model.width_level_1
-	target_width = current_width
 	edge_buffer = track_model.edge_buffer
 	total_width = (current_width * 2) + 1 + (edge_buffer * 2)
-	
-	Events.begin_level_animation.connect(handle_level_update)
 
 
 func _process(delta):
@@ -33,19 +34,33 @@ func _process(delta):
 	var bottom_camera_map_coords = local_to_map(camera_manager.camera_position() + camera_position_offset)
 	var bottom_row = bottom_camera_map_coords.y + vertical_offset
 	
-	if (row < last_draw_row):
+	if (row < top_draw_row):
 		draw_next_row(row)
-		erase_bottom_row(bottom_row)
+	
+	if (bottom_erase_row > bottom_row):
+		erase_bottom_row(bottom_erase_row)
 
 
 func draw_next_row(row: int):
-	last_draw_row = row
+	match draw_mode:
+		TrackManager.DRAW_MODE.STANDARD:
+			draw_standard_row(row)
+		TrackManager.DRAW_MODE.TRANSITION:
+			if prev_draw_mode == TrackManager.DRAW_MODE.TRANSITION:
+				transition_complete.emit()
+			else:
+				draw_transition_block(row)
+	prev_draw_mode = draw_mode
+
+
+func draw_standard_row(row: int): 
+	top_draw_row = row
 	var barrier_atlas = Vector2i(10, 14)
 	for x in range(0, edge_buffer):
 		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
 	
 	for x in range(total_width - edge_buffer, total_width):
-		set_cell(0, Vector2i(x, row), 0, barrier_atlas)	
+		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
 	
 	for x in range(0, total_width - (edge_buffer * 2)):
 		var track = x / (current_width + 1)
@@ -61,7 +76,24 @@ func draw_next_row(row: int):
 		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
 
 
+func draw_transition_block(row: int):
+	top_draw_row -= 9
+	
+	for y in range(row, row - 4, -1):
+		set_row_as_barrier(y)
+	
+	#gap for skybox
+	for y in range(row - 8, row - 12, -1):
+		set_row_as_barrier(y)
+
+
+func set_row_as_barrier(row: int):
+	var barrier_atlas = Vector2i(10, 14)
+	for x in range(0, total_width):
+		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
+
 func erase_bottom_row(row: int):
+	bottom_erase_row -= 1
 	for x in range(0, total_width):
 		erase_cell(0, Vector2i(x, row))
 
