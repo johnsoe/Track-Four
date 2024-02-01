@@ -1,6 +1,8 @@
 extends Node
 
 @onready var track_manager: TrackManager = $TrackManager
+@onready var swap_manager: SwapManager = $SwapManager
+
 @export var ball_scene: PackedScene
 @export var ball_sprites: Array[CompressedTexture2D]
 
@@ -11,15 +13,16 @@ func _ready():
 	
 	
 	for i in range(0, 2):
-		var ball_spawn_pos = track_manager.get_track_spawn_position(i, TrackManager.LOCATION.BOTTOM)
+		var ball_spawn_pos = track_manager.get_track_spawn_position(i, 1, TrackManager.LOCATION.BOTTOM)
 		var ball_inst = ball_scene.instantiate() as PlayerBall
 		ball_inst.track_id = i
 		ball_inst.sprite_override = ball_sprites[i]
 		ball_inst.vert_speed = 200
 		ball_inst.x_speed = 400
+		swap_manager.balls[i] = ball_inst
 		add_child(ball_inst)
 		ball_inst.global_position = ball_spawn_pos
-	
+		
 
 func _process(delta):
 	pass

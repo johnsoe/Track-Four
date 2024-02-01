@@ -15,13 +15,7 @@ func _process(delta):
 
 
 func calculate_camera_offset():
-	var camera_viewport_pos = camera.get_viewport().get_visible_rect().position
-	var camera_pos = camera.global_position
-	return camera_pos - camera_viewport_pos
-
-
-func get_camera_rect():
-	return camera.get_viewport().get_visible_rect()
+	return camera.get_viewport().get_visible_rect().size / 2
 
 
 func camera_position():

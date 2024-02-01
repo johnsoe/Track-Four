@@ -33,7 +33,7 @@ position = Vector2(297, 512)
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
 [node name="SwapManager" parent="." node_paths=PackedStringArray("balls", "track_manager") instance=ExtResource("4_plhv0")]
-balls = [NodePath(""), NodePath("")]
+balls = [null, null, null, null]
 track_manager = NodePath("../TrackManager")
 
 [node name="SwapSpawnManager" parent="." node_paths=PackedStringArray("distance_manager", "track_manager", "camera_manager") instance=ExtResource("5_amiyl")]

@@ -1,4 +1,5 @@
 extends Node
+class_name SwapManager
 
 @export var balls: Array[Node2D]
 @export var track_manager: TrackManager
@@ -24,4 +25,5 @@ func swap_tracks(swaps: Dictionary):
 func update_ball_positions():
 	for i in range(0, 2):
 		var ball = balls[track_positions[i]]
-		ball.global_position = track_manager.get_track_spawn_position(i, TrackManager.LOCATION.BOTTOM)
+		var updated_position = track_manager.get_track_spawn_position(i, 1, TrackManager.LOCATION.BOTTOM)
+		ball.global_position = updated_position

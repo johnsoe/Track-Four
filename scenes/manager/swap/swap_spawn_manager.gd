@@ -28,7 +28,7 @@ func on_distance_updated(distance: int):
 		next_swaps = {}
 		
 		var portal = swap_scene.instantiate() as Portal
-		var x = (track_manager.get_track_spawn_position(0, TrackManager.LOCATION.TOP)).x - 19
+		var x = (track_manager.get_track_spawn_position(0, 1, TrackManager.LOCATION.TOP)).x - 19
 		var y = (camera_manager.camera_position() - camera_position_offset - Vector2(0, 200)).y
 		portal.global_position = Vector2(x, y)
 		get_parent().add_child(portal)
@@ -36,7 +36,7 @@ func on_distance_updated(distance: int):
 		portal.on_player_collide.connect(register_swap)
 		
 		portal = swap_scene.instantiate() as Portal
-		x = (track_manager.get_track_spawn_position(0, TrackManager.LOCATION.TOP)).x - 29
+		x = (track_manager.get_track_spawn_position(0, 1, TrackManager.LOCATION.TOP)).x - 29
 		y = (camera_manager.camera_position() - camera_position_offset - Vector2(0, 200)).y
 		portal.global_position = Vector2(x, y)
 		get_parent().add_child(portal)

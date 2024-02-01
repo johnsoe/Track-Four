@@ -9,29 +9,30 @@ enum LOCATION { TOP, BOTTOM }
 
 @onready var tilemap: TrackTileMap = $TileMap
 
-var mid_track_position: Array[float]
-var tile_width: int
+var mid_track_position: Dictionary
 
 #TODO: consolidate logic in the tilemap and manager
 
 func _ready():
-	mid_track_position = [0.0, 0.0, 0.0, 0.0]
-	tile_width = track_model.width_level_1
-	for i in range(0, 4):
-		mid_track_position[i] = calculate_track_position(i)
+	mid_track_position = {
+		1: [0.0, 0.0],
+		2: [0.0, 0.0, 0.0],
+		3: [0.0, 0.0, 0.0, 0.0]
+	}
+	for i in range(1, 4):
+		calculate_track_positions_by_level(i)
 	
-	Events.complete_level_animation.connect(handle_level_update)
-	
+	print(mid_track_position)
 
-func get_track_spawn_position(track: int, spawn_location: LOCATION):
+func get_track_spawn_position(track: int, level: int, spawn_location: LOCATION):
 	if track < 0 || track > mid_track_position.size():
 		return null
 		
 	match spawn_location:
 		LOCATION.BOTTOM: 
-			return Vector2(mid_track_position[track], get_bottom_spawn_y())
+			return Vector2(mid_track_position[level][track], get_bottom_spawn_y())
 		LOCATION.TOP:
-			return Vector2(mid_track_position[track], get_top_spawn_y())
+			return Vector2(mid_track_position[level][track], get_top_spawn_y())
 
 
 func get_top_spawn_y():
@@ -39,27 +40,25 @@ func get_top_spawn_y():
 	
 
 func get_bottom_spawn_y():
-	var rect = camera_manager.get_camera_rect() as Rect2
-	var height = rect.end.y - rect.position.y
+	var bottom_edge = camera_manager.camera_position() + camera_manager.calculate_camera_offset()
+	var height = camera_manager.calculate_camera_offset().y * 2
 	var bottom_spawn_offset = height * (ball_spawn_height_percent / 100.0)
-	return camera_manager.get_camera_rect().end.y - bottom_spawn_offset
+	return bottom_edge.y - bottom_spawn_offset
 
 
-func calculate_track_position(track: int):
-	var x_coord = get_mid_x_of_track(track)
-	var global_x_coord = tilemap.map_to_local(Vector2(x_coord, 0)).x
-	return global_x_coord
-
-
-func get_mid_x_of_track(track: int):
-	var width = tile_width
-	return (width * track) + (width / 2) + track
+func calculate_track_positions_by_level(level: int):
+	var cell_size = tilemap.cell_quadrant_size
+	var result = mid_track_position[level]
+	match level:
+		1: 
+			result = [track_model.edge_buffer + (track_model.width_level_1 / 2.0), track_model.edge_buffer + track_model.width_level_1 + 1]
+		_:
+			var w = track_model.width_level_2
+			for i in range(0, level + 1):
+				result[i] = i + 1 + (w * (.5 + i))
+	
+	mid_track_position[level] = result.map(func (num): return num * cell_size)
 	
 
 func handle_level_update(level: int):
-	match level:
-		2: tile_width = track_model.width_level_2
-		3: tile_width = track_model.width_level_3
-		
-	for i in range(0, 4):
-		mid_track_position[i] = calculate_track_position(i)
+	pass
