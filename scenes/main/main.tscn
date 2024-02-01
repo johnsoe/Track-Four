@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=20 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -16,7 +16,9 @@
 [ext_resource type="TileSet" uid="uid://cs6suy4hysev3" path="res://resources/updates_tiles.tres" id="9_0hy5a"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
+[ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
 [ext_resource type="PackedScene" uid="uid://drxv1hmvosxkh" path="res://scenes/portal/portal.tscn" id="14_kelng"]
+[ext_resource type="PackedScene" uid="uid://bxhjepca7lp6d" path="res://scenes/portal/level_portal_end.tscn" id="15_yux1c"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_unvkh")
@@ -42,14 +44,19 @@ track_manager = NodePath("../TrackManager")
 swap_scene = ExtResource("14_kelng")
 camera_manager = NodePath("../CameraManager")
 
-[node name="LevelManager" parent="." node_paths=PackedStringArray("distance_manager") instance=ExtResource("7_pvy6e")]
+[node name="LevelManager" parent="." node_paths=PackedStringArray("distance_manager", "track_manager") instance=ExtResource("7_pvy6e")]
 distance_manager = NodePath("../DistanceManager")
-level_thresholds = Array[int]([2, 4])
+track_manager = NodePath("../TrackManager")
+level_thresholds = Array[int]([2, 6])
+level_portal_start = ExtResource("14_ip4ow")
+level_portal_end = ExtResource("15_yux1c")
+ball_scene = ExtResource("5_62d2l")
+ball_sprites = Array[CompressedTexture2D]([ExtResource("6_xxwom"), ExtResource("7_fcp1f"), ExtResource("12_k076o"), ExtResource("13_suwhj")])
 
 [node name="TrackManager" type="Node" parent="." node_paths=PackedStringArray("camera_manager")]
 script = ExtResource("4_ar6hq")
 track_model = ExtResource("5_08yfv")
-top_spawn_offset_percent = 20.0
+top_spawn_offset_percent = 4.0
 bottom_spawn_offset_percent = 15.0
 camera_manager = NodePath("../CameraManager")
 

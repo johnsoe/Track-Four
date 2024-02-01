@@ -19,5 +19,7 @@ func set_swap(s: Vector2):
 
 
 func on_body_entered(other: Node2D):
+	if swap == null:
+		return
 	on_player_collide.emit(swap)
 	queue_free()

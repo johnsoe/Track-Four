@@ -18,9 +18,9 @@ func _ready():
 		ball_inst.sprite_override = ball_sprites[i]
 		ball_inst.vert_speed = 200
 		ball_inst.x_speed = 400
-		swap_manager.balls[i] = ball_inst
 		add_child(ball_inst)
 		ball_inst.global_position = ball_spawn_pos
+		Events.emit_ball_spawn(ball_inst, i)
 		
 
 func _process(delta):

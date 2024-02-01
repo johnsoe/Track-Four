@@ -25,6 +25,7 @@ func _ready():
 	current_width = track_model.width_level_1
 	edge_buffer = track_model.edge_buffer
 	total_width = (current_width * 2) + 1 + (edge_buffer * 2)
+	Events.begin_level_transition.connect(handle_level_update)
 
 
 func _process(delta):
@@ -47,6 +48,7 @@ func draw_next_row(row: int):
 			draw_standard_row(row)
 		TrackManager.DRAW_MODE.TRANSITION:
 			if prev_draw_mode == TrackManager.DRAW_MODE.TRANSITION:
+				draw_mode = TrackManager.DRAW_MODE.STANDARD
 				transition_complete.emit()
 			else:
 				draw_transition_block(row)
@@ -92,6 +94,7 @@ func set_row_as_barrier(row: int):
 	for x in range(0, total_width):
 		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
 
+
 func erase_bottom_row(row: int):
 	bottom_erase_row -= 1
 	for x in range(0, total_width):
@@ -117,6 +120,7 @@ func _input(event):
 
 
 func handle_level_update(level: int):
+	draw_mode = TrackManager.DRAW_MODE.TRANSITION
 	edge_buffer = 1
 	match level:
 		2: current_width = track_model.width_level_2
