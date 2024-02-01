@@ -44,12 +44,13 @@ camera_manager = NodePath("../CameraManager")
 
 [node name="LevelManager" parent="." node_paths=PackedStringArray("distance_manager") instance=ExtResource("7_pvy6e")]
 distance_manager = NodePath("../DistanceManager")
-level_thresholds = Array[int]([1, 4])
+level_thresholds = Array[int]([2, 4])
 
 [node name="TrackManager" type="Node" parent="." node_paths=PackedStringArray("camera_manager")]
 script = ExtResource("4_ar6hq")
 track_model = ExtResource("5_08yfv")
-ball_spawn_height_percent = 15.0
+top_spawn_offset_percent = 20.0
+bottom_spawn_offset_percent = 15.0
 camera_manager = NodePath("../CameraManager")
 
 [node name="TileMap" type="TileMap" parent="TrackManager" node_paths=PackedStringArray("camera_manager")]
