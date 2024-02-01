@@ -7,6 +7,7 @@ signal transition_complete()
 @export var atlas_x_start: int
 @export var track_model: TrackModel
 @export var camera_manager: CameraManager
+@export var cracked_tile_odds: int
 
 var camera_position_offset: Vector2
 var top_draw_row: int
@@ -74,7 +75,11 @@ func draw_standard_row(row: int):
 		elif x % (current_width + 1) == current_width - 1:
 			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
 		else:
-			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
+			if track == 0 && randi() % cracked_tile_odds == 0:
+				var offset = randi() % 3 + 2
+				atlas_coords = Vector2i(atlas_x_start + 1, 9 - offset)
+			else:
+				atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
 		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
 
 
