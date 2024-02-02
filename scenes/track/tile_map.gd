@@ -3,13 +3,13 @@ class_name TrackTileMap
 
 signal transition_complete()
 
-@export var vertical_offset: int
 @export var atlas_x_start: int
 @export var track_model: TrackModel
 @export var cracked_tile_odds: int
 @export var top_spawner: Node2D
 @export var object_eraser: Node2D
 @export var pan_speed: int
+@export var debug_label: Label
 
 var top_draw_row: int
 var bottom_erase_row: int
@@ -34,7 +34,7 @@ func _process(delta):
 	var row = top_spawner_coords.y
 	
 	var bottom_spawner_coords = local_to_map(to_local(object_eraser.global_position))
-	var bottom_row = bottom_spawner_coords.y + vertical_offset
+	var bottom_row = bottom_spawner_coords.y
 	
 	if (row < top_draw_row):
 		draw_next_row(row)
@@ -75,9 +75,9 @@ func draw_standard_row(row: int):
 		elif x % (current_width + 1) == current_width - 1:
 			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
 		else:
-			if track == 0 && randi() % cracked_tile_odds == 0:
+			if randi() % cracked_tile_odds == 0:
 				var offset = randi() % 3 + 2
-				atlas_coords = Vector2i(atlas_x_start + 1, 9 - offset)
+				atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9 - offset)
 			else:
 				atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
 		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
@@ -108,7 +108,8 @@ func erase_bottom_row(row: int):
 
 func _input(event):
 	if event is InputEventScreenTouch && event.is_pressed():
-		var position = get_global_mouse_position()
+		debug_label.text = str(event.index) + " " + str(event.position)
+		var position = event.position
 		var tile_clicked = local_to_map(to_local(position))
 		var tile_data = get_cell_tile_data(0, tile_clicked)
 		if tile_data == null:
