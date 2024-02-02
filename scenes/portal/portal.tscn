@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://drxv1hmvosxkh"]
+[gd_scene load_steps=9 format=3 uid="uid://drxv1hmvosxkh"]
 
 [ext_resource type="Script" path="res://scenes/portal/portal.gd" id="1_swvna"]
 [ext_resource type="Texture2D" uid="uid://csw1kke27nbyj" path="res://scenes/portal/yellow_body_square.png" id="2_j7nxd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dop0m7h4rlhkj" path="res://scenes/portal/red_body_square.png" id="4_1kd2g"]
 [ext_resource type="Texture2D" uid="uid://de5boa3vgvwga" path="res://scenes/portal/blue_body_square.png" id="5_njs43"]
 [ext_resource type="Texture2D" uid="uid://nloc56gs6j0q" path="res://scenes/portal/purple_body_square.png" id="6_gw04k"]
+[ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="7_ky6g2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_737nt"]
 
@@ -24,3 +25,5 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_737nt")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("7_ky6g2")]

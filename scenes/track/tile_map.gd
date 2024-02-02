@@ -6,10 +6,11 @@ signal transition_complete()
 @export var vertical_offset: int
 @export var atlas_x_start: int
 @export var track_model: TrackModel
-@export var camera_manager: CameraManager
 @export var cracked_tile_odds: int
+@export var top_spawner: Node2D
+@export var object_eraser: Node2D
+@export var pan_speed: int
 
-var camera_position_offset: Vector2
 var top_draw_row: int
 var bottom_erase_row: int
 
@@ -22,7 +23,6 @@ var prev_draw_mode: TrackManager.DRAW_MODE
 
 func _ready():
 	top_draw_row = 0
-	camera_position_offset = camera_manager.calculate_camera_offset()
 	current_width = track_model.width_level_1
 	edge_buffer = track_model.edge_buffer
 	total_width = (current_width * 2) + 1 + (edge_buffer * 2)
@@ -30,11 +30,11 @@ func _ready():
 
 
 func _process(delta):
-	var top_camera_map_coords = local_to_map(camera_manager.camera_position() - camera_position_offset)
-	var row = top_camera_map_coords.y - vertical_offset
+	var top_spawner_coords = local_to_map(to_local(top_spawner.global_position))
+	var row = top_spawner_coords.y
 	
-	var bottom_camera_map_coords = local_to_map(camera_manager.camera_position() + camera_position_offset)
-	var bottom_row = bottom_camera_map_coords.y + vertical_offset
+	var bottom_spawner_coords = local_to_map(to_local(object_eraser.global_position))
+	var bottom_row = bottom_spawner_coords.y + vertical_offset
 	
 	if (row < top_draw_row):
 		draw_next_row(row)
@@ -107,21 +107,20 @@ func erase_bottom_row(row: int):
 
 
 func _input(event):
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			var position = get_global_mouse_position()
-			var tile_clicked = local_to_map(position)
-			var tile_data = get_cell_tile_data(0, tile_clicked)
-			if tile_data == null:
-				return
-				
-			var track_id = tile_data.get_custom_data("track_id")
-			# This is dirty hack for now
-			if tile_clicked.x == 0:
-				var dict = {0:1, 1:0}
-				Events.on_swap_tracks.emit(dict)
-			else:
-				Events.on_track_clicked.emit(track_id)
+	if event is InputEventScreenTouch && event.is_pressed():
+		var position = get_global_mouse_position()
+		var tile_clicked = local_to_map(to_local(position))
+		var tile_data = get_cell_tile_data(0, tile_clicked)
+		if tile_data == null:
+			return
+			
+		var track_id = tile_data.get_custom_data("track_id")
+		# This is dirty hack for now
+		if tile_clicked.x == 0:
+			var dict = {0:1, 1:0}
+			Events.on_swap_tracks.emit(dict)
+		else:
+			Events.on_track_clicked.emit(track_id)
 
 
 func handle_level_update(level: int):

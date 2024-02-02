@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name PlayerBall
 
 @export var track_id: int
-@export var vert_speed: int
 @export var x_speed: int
 @export var sprite_override: CompressedTexture2D
 
@@ -14,7 +13,7 @@ func _ready():
 
 
 func _process(delta):
-	velocity = Vector2(x_speed, -1 * vert_speed)
+	velocity = Vector2(x_speed, 0)
 	move_and_slide()
 
 

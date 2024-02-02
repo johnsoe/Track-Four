@@ -5,9 +5,8 @@ enum LOCATION { TOP, BOTTOM }
 enum DRAW_MODE { STANDARD, TRANSITION }
 
 @export var track_model: TrackModel
-@export var top_spawn_offset_percent: float
-@export var bottom_spawn_offset_percent: float
-@export var camera_manager: CameraManager
+@export var top_spawner: Node2D
+@export var bottom_spawner: Node2D
 
 @onready var tilemap: TrackTileMap = $TileMap
 
@@ -38,17 +37,11 @@ func get_track_spawn_position(track: int, level: int, spawn_location: LOCATION):
 
 
 func get_top_spawn_y():
-	var top_edge = camera_manager.camera_position() - camera_manager.calculate_camera_offset()
-	var height = camera_manager.calculate_camera_offset().y * 2
-	var top_spawn_offset = height * (top_spawn_offset_percent / 100.0)
-	return top_edge.y - top_spawn_offset
+	return top_spawner.global_position.y
 	
 
 func get_bottom_spawn_y():
-	var bottom_edge = camera_manager.camera_position() + camera_manager.calculate_camera_offset()
-	var height = camera_manager.calculate_camera_offset().y * 2
-	var bottom_spawn_offset = height * (bottom_spawn_offset_percent / 100.0)
-	return bottom_edge.y - bottom_spawn_offset
+	return bottom_spawner.global_position.y
 
 
 func calculate_track_positions_by_level(level: int):

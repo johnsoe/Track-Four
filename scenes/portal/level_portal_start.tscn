@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://uoweb5y1k8c2"]
+[gd_scene load_steps=5 format=3 uid="uid://uoweb5y1k8c2"]
 
 [ext_resource type="Script" path="res://scenes/portal/level_portal_start.gd" id="1_8uggn"]
 [ext_resource type="Texture2D" uid="uid://nloc56gs6j0q" path="res://scenes/portal/purple_body_square.png" id="2_aatd6"]
+[ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="3_4lwul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkb5w"]
 
@@ -19,3 +20,5 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_qkb5w")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_4lwul")]

@@ -1,19 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxhjepca7lp6d"]
+[gd_scene load_steps=5 format=3 uid="uid://bxhjepca7lp6d"]
 
 [ext_resource type="Texture2D" uid="uid://nloc56gs6j0q" path="res://scenes/portal/purple_body_square.png" id="1_0fuxb"]
+[ext_resource type="Script" path="res://scenes/portal/level_portal_end.gd" id="1_jcw4r"]
+[ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="2_ovsx3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwm4p"]
 
 [node name="LevelPortalEnd" type="Node2D"]
 scale = Vector2(2, 0.125)
+script = ExtResource("1_jcw4r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0fuxb")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_qwm4p")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_ovsx3")]

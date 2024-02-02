@@ -10,8 +10,9 @@ func _ready():
 
 
 func _process(delta):
-	var pos_delta = Vector2(0, pan_speed * delta)
-	camera.global_position = camera.global_position - pos_delta
+	pass
+	#var pos_delta = Vector2(0, pan_speed * delta)
+	#camera.global_position = camera.global_position - pos_delta
 
 
 func calculate_camera_offset():
