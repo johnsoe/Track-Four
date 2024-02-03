@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=25 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -22,6 +22,7 @@
 [ext_resource type="TileSet" uid="uid://n07x8aew4fd5" path="res://resources/final_tiles.tres" id="18_hph6g"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="20_qstc3"]
 [ext_resource type="PackedScene" uid="uid://bwy1yoam660i2" path="res://scenes/obstacle/basic_obstacle.tscn" id="22_iqq63"]
+[ext_resource type="Script" path="res://scenes/main/death_screen.gd" id="23_8kcot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hx1"]
 size = Vector2(646, 12)
@@ -58,6 +59,7 @@ position = Vector2(297, 1083)
 [node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
 basic_obstacle = ExtResource("22_iqq63")
 track_manager = NodePath("../TrackManager")
+obstacle_count = 8
 
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
@@ -100,6 +102,29 @@ pan_speed = -200
 debug_label = NodePath("../../Label")
 
 [node name="VelocityComponent" parent="TrackManager/TileMap" instance=ExtResource("20_qstc3")]
+
+[node name="DeathScreen" type="MarginContainer" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("23_8kcot")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Ya Ded"
+
+[node name="Button" type="Button" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+text = "Reset"
 
 [node name="Label" type="Label" parent="."]
 visible = false

@@ -23,6 +23,8 @@ Events="*res://scripts/events.gd"
 
 window/size/viewport_width=592
 window/size/viewport_height=1024
+window/size/window_width_override=1024
+window/size/window_height_override=2000
 window/handheld/orientation=1
 
 [input_devices]
