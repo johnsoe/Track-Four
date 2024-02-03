@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwy1yoam660i2"]
+
+[ext_resource type="Texture2D" uid="uid://cnp5ttq54lypj" path="res://scenes/obstacle/tile_0127.png" id="1_spqt7"]
+[ext_resource type="Script" path="res://scenes/obstacle/basic_obstacle.gd" id="1_w6sxl"]
+[ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="2_8d2d0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82cy4"]
+radius = 4.0
+height = 12.0
+
+[node name="Obstacle" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_w6sxl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 4.71239
+texture = ExtResource("1_spqt7")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_82cy4")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_8d2d0")]

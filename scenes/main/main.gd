@@ -7,8 +7,9 @@ extends Node
 @export var ball_sprites: Array[CompressedTexture2D]
 
 func _ready():
-	#get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
-	#get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+	Events.on_game_over.connect(handle_game_over)
+	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
+	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
 	for i in range(0, 2):
 		var ball_spawn_pos = track_manager.get_track_spawn_position(i, 1, TrackManager.LOCATION.BOTTOM)
@@ -22,3 +23,7 @@ func _ready():
 
 func _process(delta):
 	pass
+
+
+func handle_game_over():
+	print("game over")

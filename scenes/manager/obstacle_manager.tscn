@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdxyp68fpdhqh"]
+
+[ext_resource type="Script" path="res://scenes/manager/obstacle_manager.gd" id="1_qvvl2"]
+
+[node name="ObstacleManager" type="Node"]
+script = ExtResource("1_qvvl2")
+
+[node name="BasicSpawnTimer" type="Timer" parent="."]
+wait_time = 0.33
+autostart = true
+
+[node name="LevelWaitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

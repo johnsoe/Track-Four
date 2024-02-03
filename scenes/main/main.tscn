@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=24 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://byrq7vvgut6mt" path="res://scenes/player/yellow_body_circle.png" id="6_xxwom"]
 [ext_resource type="Texture2D" uid="uid://lmp3mpjx6702" path="res://scenes/player/green_body_circle.png" id="7_fcp1f"]
 [ext_resource type="PackedScene" uid="uid://c3y02utco0xvd" path="res://scenes/manager/level_manager.tscn" id="7_pvy6e"]
+[ext_resource type="PackedScene" uid="uid://cdxyp68fpdhqh" path="res://scenes/manager/obstacle_manager.tscn" id="9_ctpii"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
 [ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
@@ -20,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bxhjepca7lp6d" path="res://scenes/portal/level_portal_end.tscn" id="15_yux1c"]
 [ext_resource type="TileSet" uid="uid://n07x8aew4fd5" path="res://resources/final_tiles.tres" id="18_hph6g"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="20_qstc3"]
+[ext_resource type="PackedScene" uid="uid://bwy1yoam660i2" path="res://scenes/obstacle/basic_obstacle.tscn" id="22_iqq63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hx1"]
 size = Vector2(646, 12)
@@ -52,6 +54,10 @@ shape = SubResource("RectangleShape2D_p2hx1")
 
 [node name="ObjectEraser" type="Node2D" parent="."]
 position = Vector2(297, 1083)
+
+[node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
+basic_obstacle = ExtResource("22_iqq63")
+track_manager = NodePath("../TrackManager")
 
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
@@ -96,6 +102,7 @@ debug_label = NodePath("../../Label")
 [node name="VelocityComponent" parent="TrackManager/TileMap" instance=ExtResource("20_qstc3")]
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = 23.0
 offset_top = 24.0
 offset_right = 97.0
