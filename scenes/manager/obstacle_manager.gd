@@ -4,6 +4,7 @@ extends Node
 @export var basic_obstacle: PackedScene
 @export var long_obstacle: PackedScene
 @export var vert_obstacle: PackedScene
+@export var h_obstacle: PackedScene
 
 @export var obstacle_odds: Array[int]
 @export var track_manager: TrackManager
@@ -56,8 +57,10 @@ func instantiate_random_obstacle():
 			return basic_obstacle.instantiate() as Obstacle2D
 		1:
 			return long_obstacle.instantiate() as Obstacle2D
-		_:
+		2:
 			return vert_obstacle.instantiate() as Obstacle2D
+		_:
+			return h_obstacle.instantiate() as Obstacle2D
 	
 
 

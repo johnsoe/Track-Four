@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcg73uuvxg8p6"]
+
+[ext_resource type="Script" path="res://scenes/obstacle/horizontal_obstacle.gd" id="1_p2j33"]
+[ext_resource type="Texture2D" uid="uid://cnp5ttq54lypj" path="res://scenes/obstacle/tile_0127.png" id="2_2gri6"]
+[ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="3_ka6ro"]
+
+[sub_resource type="Animation" id="Animation_fp01w"]
+resource_name = "obstacle_spin"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bgabh"]
+_data = {
+"obstacle_spin": SubResource("Animation_fp01w")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gyxrl"]
+radius = 5.0
+
+[node name="HorizontalObstacle" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_p2j33")
+horizontal_speed = 150.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "obstacle_spin"
+libraries = {
+"": SubResource("AnimationLibrary_bgabh")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_2gri6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.5, 2)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_gyxrl")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_ka6ro")]
+
+[node name="InitTimer" type="Timer" parent="."]
+wait_time = 0.125
+one_shot = true
+autostart = true
+
+[node name="ActiveTimer" type="Timer" parent="."]
+wait_time = 0.25
