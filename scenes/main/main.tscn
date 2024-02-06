@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=26 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://lmp3mpjx6702" path="res://scenes/player/green_body_circle.png" id="7_fcp1f"]
 [ext_resource type="PackedScene" uid="uid://c3y02utco0xvd" path="res://scenes/manager/level_manager.tscn" id="7_pvy6e"]
 [ext_resource type="PackedScene" uid="uid://cdxyp68fpdhqh" path="res://scenes/manager/obstacle_manager.tscn" id="9_ctpii"]
+[ext_resource type="PackedScene" uid="uid://e7t84grp83de" path="res://scenes/obstacle/long_obstacle.tscn" id="11_68ewy"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
 [ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
@@ -58,6 +59,8 @@ position = Vector2(297, 1083)
 
 [node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
 basic_obstacle = ExtResource("22_iqq63")
+long_obstacle = ExtResource("11_68ewy")
+obstacle_odds = Array[int]([50, 10])
 track_manager = NodePath("../TrackManager")
 obstacle_count = 8
 
@@ -106,6 +109,7 @@ debug_label = NodePath("../../Label")
 [node name="DeathScreen" type="MarginContainer" parent="."]
 process_mode = 3
 visible = false
+z_index = 25
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

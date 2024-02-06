@@ -17,4 +17,4 @@ func flip():
 
 
 func width():
-	return sprite.texture.get_width()
+	return sprite.texture.get_width() * 2

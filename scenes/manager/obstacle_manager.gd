@@ -2,6 +2,8 @@ extends Node
 
 
 @export var basic_obstacle: PackedScene
+@export var long_obstacle: PackedScene
+@export var obstacle_odds: Array[int]
 @export var track_manager: TrackManager
 @export var obstacle_count: int
 
@@ -32,13 +34,22 @@ func spawn_obstacle():
 	var track_width = track_manager.get_track_width(current_level)
 	var side = -1 if randi_range(0, 1) == 0 else 1
 		
-	var obstacle_inst = basic_obstacle.instantiate() as Obstacle2D
+	var obstacle_inst = instantiate_random_obstacle()
 	get_parent().add_child(obstacle_inst)
-	obstacle_inst.global_position = spawn_position + Vector2((track_width - obstacle_inst.width()) * side / 2.15, 0)
+	obstacle_inst.global_position = spawn_position + Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
 	if side == -1:
 		obstacle_inst.flip()
 	spawned_obstacle_count += 1
-	#print(last_obstacles_track)
+
+
+func instantiate_random_obstacle():
+	var index = pull_index_from_weighted_array(obstacle_odds)
+	match index:
+		1:
+			return long_obstacle.instantiate() as Obstacle2D
+		_:
+			return basic_obstacle.instantiate() as Obstacle2D
+	
 
 
 func on_level_transition(level: int):
@@ -46,20 +57,23 @@ func on_level_transition(level: int):
 
 
 func get_random_track_from_dist():
-	var dist = get_obstacle_distribution()
+	var dist = get_obstacle_distribution() as Array[int]
 	var priority = dist.find(-1)
 	if priority != -1:
 		return priority
-		
-	var sum = dist.reduce(func(accum, num): return accum + num, 0)
+	
+	return pull_index_from_weighted_array(dist)
+
+
+func pull_index_from_weighted_array(arr):
+	var sum = arr.reduce(func(accum, num): return accum + num, 0)
 	var temp_sum = 0
 	var num = randi_range(0, sum - 1)
-	for i in dist.size():
-		temp_sum += dist[i]
+	for i in arr.size():
+		temp_sum += arr[i]
 		if num <= temp_sum:
 			return i
 	return 0
-	
 
 func get_obstacle_distribution():
 	var distribution = []
