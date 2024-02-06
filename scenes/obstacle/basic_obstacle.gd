@@ -4,6 +4,8 @@ class_name Obstacle2D
 @onready var area = $Area2D
 @onready var sprite = $Sprite2D
 
+var is_offset = true
+
 func _ready():
 	area.body_entered.connect(player_collision)
 

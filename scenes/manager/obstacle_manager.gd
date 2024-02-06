@@ -3,6 +3,8 @@ extends Node
 
 @export var basic_obstacle: PackedScene
 @export var long_obstacle: PackedScene
+@export var vert_obstacle: PackedScene
+
 @export var obstacle_odds: Array[int]
 @export var track_manager: TrackManager
 @export var obstacle_count: int
@@ -32,23 +34,30 @@ func spawn_obstacle():
 	last_obstacles_track[spawned_obstacle_count % obstacle_count] = track
 	var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
 	var track_width = track_manager.get_track_width(current_level)
-	var side = -1 if randi_range(0, 1) == 0 else 1
+	
 		
 	var obstacle_inst = instantiate_random_obstacle()
 	get_parent().add_child(obstacle_inst)
-	obstacle_inst.global_position = spawn_position + Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
-	if side == -1:
-		obstacle_inst.flip()
+	var offset = Vector2.ZERO
+	if obstacle_inst.is_offset:
+		var side = -1 if randi_range(0, 1) == 0 else 1
+		offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
+		if side == -1:
+			obstacle_inst.flip()
+		
+	obstacle_inst.global_position = spawn_position + offset
 	spawned_obstacle_count += 1
 
 
 func instantiate_random_obstacle():
 	var index = pull_index_from_weighted_array(obstacle_odds)
 	match index:
+		0:
+			return basic_obstacle.instantiate() as Obstacle2D
 		1:
 			return long_obstacle.instantiate() as Obstacle2D
 		_:
-			return basic_obstacle.instantiate() as Obstacle2D
+			return vert_obstacle.instantiate() as Obstacle2D
 	
 
 
