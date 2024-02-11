@@ -9,7 +9,7 @@ extends Node
 
 func _ready():
 	Events.on_game_over.connect(handle_game_over)
-	#get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
+	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
 	for i in range(0, 2):

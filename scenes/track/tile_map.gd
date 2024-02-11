@@ -23,6 +23,7 @@ var prev_draw_mode: TrackManager.DRAW_MODE
 
 func _ready():
 	top_draw_row = 0
+	bottom_erase_row = 64
 	current_width = track_model.width_level_1
 	edge_buffer = track_model.edge_buffer
 	total_width = (current_width * 2) + 1 + (edge_buffer * 2)
@@ -102,7 +103,7 @@ func set_row_as_barrier(row: int):
 
 func erase_bottom_row(row: int):
 	bottom_erase_row -= 1
-	for x in range(0, total_width):
+	for x in range(-1, total_width):
 		erase_cell(0, Vector2i(x, row))
 
 

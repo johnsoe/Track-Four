@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=31 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -15,10 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://c3y02utco0xvd" path="res://scenes/manager/level_manager.tscn" id="7_pvy6e"]
 [ext_resource type="PackedScene" uid="uid://cdxyp68fpdhqh" path="res://scenes/manager/obstacle_manager.tscn" id="9_ctpii"]
 [ext_resource type="PackedScene" uid="uid://e7t84grp83de" path="res://scenes/obstacle/long_obstacle.tscn" id="11_68ewy"]
+[ext_resource type="Script" path="res://scenes/obstacle/obstacle_model.gd" id="11_tstx5"]
 [ext_resource type="PackedScene" uid="uid://d1akr0tk115t4" path="res://scenes/obstacle/vertical_obstacle.tscn" id="12_1v4ak"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
-[ext_resource type="PackedScene" uid="uid://bcg73uuvxg8p6" path="res://scenes/obstacle/horizontal_obstacle.tscn" id="13_t70u8"]
 [ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
 [ext_resource type="PackedScene" uid="uid://drxv1hmvosxkh" path="res://scenes/portal/portal.tscn" id="14_kelng"]
 [ext_resource type="PackedScene" uid="uid://bxhjepca7lp6d" path="res://scenes/portal/level_portal_end.tscn" id="15_yux1c"]
@@ -29,6 +29,21 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hx1"]
 size = Vector2(646, 12)
+
+[sub_resource type="Resource" id="Resource_pvbwu"]
+script = ExtResource("11_tstx5")
+obstacle_scene = ExtResource("22_iqq63")
+spawn_weight = 25
+
+[sub_resource type="Resource" id="Resource_g0qjg"]
+script = ExtResource("11_tstx5")
+obstacle_scene = ExtResource("11_68ewy")
+spawn_weight = 5
+
+[sub_resource type="Resource" id="Resource_8r61y"]
+script = ExtResource("11_tstx5")
+obstacle_scene = ExtResource("12_1v4ak")
+spawn_weight = 1
 
 [node name="Main" type="Node"]
 script = ExtResource("1_unvkh")
@@ -60,11 +75,7 @@ shape = SubResource("RectangleShape2D_p2hx1")
 position = Vector2(297, 1083)
 
 [node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
-basic_obstacle = ExtResource("22_iqq63")
-long_obstacle = ExtResource("11_68ewy")
-vert_obstacle = ExtResource("12_1v4ak")
-h_obstacle = ExtResource("13_t70u8")
-obstacle_odds = Array[int]([50, 10, 2, 0])
+obstacles_to_spawn = Array[ExtResource("11_tstx5")]([SubResource("Resource_pvbwu"), SubResource("Resource_g0qjg"), SubResource("Resource_8r61y")])
 track_manager = NodePath("../TrackManager")
 obstacle_count = 8
 

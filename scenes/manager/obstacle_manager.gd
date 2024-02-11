@@ -1,12 +1,6 @@
 extends Node
 
-
-@export var basic_obstacle: PackedScene
-@export var long_obstacle: PackedScene
-@export var vert_obstacle: PackedScene
-@export var h_obstacle: PackedScene
-
-@export var obstacle_odds: Array[int]
+@export var obstacles_to_spawn: Array[ObstacleModel]
 @export var track_manager: TrackManager
 @export var obstacle_count: int
 
@@ -17,6 +11,7 @@ var is_in_transition = false
 var current_level = 1
 var last_obstacles_track = []
 var spawned_obstacle_count: int = 0
+var obstacles_odds: Array[int] = []
  
 
 func _ready():
@@ -25,6 +20,7 @@ func _ready():
 	Events.begin_level_transition.connect(on_level_transition)
 	Events.complete_level_transition.connect(level_transition_complete)
 	last_obstacles_track.resize(obstacle_count)
+	obstacles_odds.assign(obstacles_to_spawn.map(func (obs): return obs.spawn_weight))
 
 
 func spawn_obstacle():
@@ -51,17 +47,8 @@ func spawn_obstacle():
 
 
 func instantiate_random_obstacle():
-	var index = pull_index_from_weighted_array(obstacle_odds)
-	match index:
-		0:
-			return basic_obstacle.instantiate() as Obstacle2D
-		1:
-			return long_obstacle.instantiate() as Obstacle2D
-		2:
-			return vert_obstacle.instantiate() as Obstacle2D
-		_:
-			return h_obstacle.instantiate() as Obstacle2D
-	
+	var index = pull_index_from_weighted_array(obstacles_odds)
+	return obstacles_to_spawn[index].obstacle_scene.instantiate() as Obstacle2D
 
 
 func on_level_transition(level: int):
