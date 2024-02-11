@@ -76,11 +76,7 @@ func draw_standard_row(row: int):
 		elif x % (current_width + 1) == current_width - 1:
 			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
 		else:
-			if randi() % cracked_tile_odds == 0:
-				var offset = randi() % 3 + 2
-				atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9 - offset)
-			else:
-				atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
+			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
 		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
 
 

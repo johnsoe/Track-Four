@@ -10,6 +10,7 @@ extends Node
 var is_in_transition = false
 var current_level = 1
 var last_obstacles_track = []
+var track_position_spawn = [0, 0, 0, 0]
 var spawned_obstacle_count: int = 0
 var obstacles_odds: Array[int] = []
  
@@ -21,6 +22,7 @@ func _ready():
 	Events.complete_level_transition.connect(level_transition_complete)
 	last_obstacles_track.resize(obstacle_count)
 	obstacles_odds.assign(obstacles_to_spawn.map(func (obs): return obs.spawn_weight))
+	
 
 
 func spawn_obstacle():
@@ -38,9 +40,14 @@ func spawn_obstacle():
 	var offset = Vector2.ZERO
 	if obstacle_inst.is_offset:
 		var side = -1 if randi_range(0, 1) == 0 else 1
+		if track_position_spawn[track] == side:
+			side = -1 if randi_range(0, 1) == 0 else 1
+		track_position_spawn[track] = side
 		offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
 		if side == -1:
 			obstacle_inst.flip()
+	else:
+		track_position_spawn[track] = 0
 		
 	obstacle_inst.global_position = spawn_position + offset
 	spawned_obstacle_count += 1
