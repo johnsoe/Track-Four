@@ -1,5 +1,7 @@
 extends Node
 
+@onready var distance_label: Label = %DistanceLabel
+
 @export var swap_thresholds: Array[int]
 @export var distance_manager: DistanceManager
 @export var track_manager: TrackManager
@@ -14,6 +16,7 @@ func _ready():
 
 
 func on_distance_updated(distance: int):
+	distance_label.text = str(distance) + "m"
 	return
 	if swap_thresholds.any(func(number): return distance == number):
 		# determine which tracks to swap, then spawn swap scene.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=32 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -44,6 +44,9 @@ spawn_weight = 5
 script = ExtResource("11_tstx5")
 obstacle_scene = ExtResource("12_1v4ak")
 spawn_weight = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vgg0"]
+modulate_color = Color(0.223529, 0.623529, 0.807843, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_unvkh")
@@ -117,7 +120,7 @@ cracked_tile_odds = 12
 top_spawner = NodePath("../../TopSpawner")
 object_eraser = NodePath("../../ObjectEraser")
 pan_speed = -200
-debug_label = NodePath("../../Label")
+debug_label = NodePath("../../Control/PanelContainer/DistanceLabel")
 
 [node name="VelocityComponent" parent="TrackManager/TileMap" instance=ExtResource("20_qstc3")]
 
@@ -145,9 +148,30 @@ text = "Ya Ded"
 layout_mode = 2
 text = "Reset"
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = 23.0
-offset_top = 24.0
-offset_right = 97.0
-offset_bottom = 70.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_right = 48.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6vgg0")
+
+[node name="DistanceLabel" type="Label" parent="Control/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0m"
+horizontal_alignment = 1
