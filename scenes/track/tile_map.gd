@@ -9,7 +9,6 @@ signal transition_complete()
 @export var top_spawner: Node2D
 @export var object_eraser: Node2D
 @export var pan_speed: int
-@export var debug_label: Label
 
 var top_draw_row: int
 var bottom_erase_row: int
@@ -105,7 +104,6 @@ func erase_bottom_row(row: int):
 
 func _input(event):
 	if event is InputEventScreenTouch && event.is_pressed():
-		debug_label.text = str(event.index) + " " + str(event.position)
 		var position = event.position
 		var tile_clicked = local_to_map(to_local(position))
 		var tile_data = get_cell_tile_data(0, tile_clicked)

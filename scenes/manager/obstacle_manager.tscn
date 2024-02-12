@@ -6,7 +6,7 @@
 script = ExtResource("1_qvvl2")
 
 [node name="BasicSpawnTimer" type="Timer" parent="."]
-wait_time = 0.33
+wait_time = 0.45
 autostart = true
 
 [node name="LevelWaitTimer" type="Timer" parent="."]
