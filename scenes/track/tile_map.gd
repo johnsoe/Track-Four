@@ -21,7 +21,7 @@ var draw_mode: TrackManager.DRAW_MODE
 var prev_draw_mode: TrackManager.DRAW_MODE
 
 func _ready():
-	top_draw_row = 0
+	top_draw_row = -10
 	bottom_erase_row = 64
 	current_width = track_model.width_level_1
 	edge_buffer = track_model.edge_buffer
@@ -57,6 +57,7 @@ func draw_next_row(row: int):
 
 
 func draw_standard_row(row: int): 
+	#print(row)
 	top_draw_row = row
 	var barrier_atlas = Vector2i(10, 14)
 	for x in range(0, edge_buffer):
