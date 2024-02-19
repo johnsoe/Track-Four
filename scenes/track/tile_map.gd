@@ -57,7 +57,6 @@ func draw_next_row(row: int):
 
 
 func draw_standard_row(row: int): 
-	#print(row)
 	top_draw_row = row
 	var barrier_atlas = Vector2i(10, 14)
 	for x in range(0, edge_buffer):

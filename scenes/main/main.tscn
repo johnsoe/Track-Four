@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=34 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" path="res://scenes/main/object_eraser.gd" id="9_v2ttd"]
 [ext_resource type="PackedScene" uid="uid://e7t84grp83de" path="res://scenes/obstacle/long_obstacle.tscn" id="11_68ewy"]
 [ext_resource type="Script" path="res://scenes/obstacle/obstacle_model.gd" id="11_tstx5"]
-[ext_resource type="PackedScene" uid="uid://d1akr0tk115t4" path="res://scenes/obstacle/vertical_obstacle.tscn" id="12_1v4ak"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
 [ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
@@ -45,11 +44,6 @@ spawn_weight = 25
 script = ExtResource("11_tstx5")
 obstacle_scene = ExtResource("11_68ewy")
 spawn_weight = 5
-
-[sub_resource type="Resource" id="Resource_8r61y"]
-script = ExtResource("11_tstx5")
-obstacle_scene = ExtResource("12_1v4ak")
-spawn_weight = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vgg0"]
 
@@ -92,7 +86,8 @@ position = Vector2(-1.5, -5)
 shape = SubResource("RectangleShape2D_e1jge")
 
 [node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
-obstacles_to_spawn = Array[ExtResource("11_tstx5")]([SubResource("Resource_pvbwu"), SubResource("Resource_g0qjg"), SubResource("Resource_8r61y")])
+obstacles_to_spawn = Array[ExtResource("11_tstx5")]([SubResource("Resource_pvbwu"), SubResource("Resource_g0qjg")])
+level_timing = Array[float]([0.4, 0.35, 0.3])
 track_manager = NodePath("../TrackManager")
 obstacle_count = 8
 

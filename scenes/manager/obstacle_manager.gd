@@ -1,6 +1,7 @@
 extends Node
 
 @export var obstacles_to_spawn: Array[ObstacleModel]
+@export var level_timing: Array[float]
 @export var track_manager: TrackManager
 @export var obstacle_count: int
 
@@ -10,12 +11,13 @@ extends Node
 var is_in_transition = false
 var current_level = 1
 var last_obstacles_track = []
-var track_position_spawn = [0, 0, 0, 0]
+var track_position_spawn = [1, -1, 1, -1]
 var spawned_obstacle_count: int = 0
 var obstacles_odds: Array[int] = []
  
 
 func _ready():
+	spawn_timer.wait_time = level_timing[0]
 	spawn_timer.timeout.connect(spawn_obstacle)
 	level_timer.timeout.connect(level_wait_complete)
 	Events.begin_level_transition.connect(on_level_transition)
@@ -39,9 +41,10 @@ func spawn_obstacle():
 	get_parent().add_child(obstacle_inst)
 	var offset = Vector2.ZERO
 	if obstacle_inst.is_offset:
-		var side = -1 if randi_range(0, 1) == 0 else 1
-		if track_position_spawn[track] == side:
-			side = -1 if randi_range(0, 1) == 0 else 1
+		var prev_spawn = track_position_spawn[track]
+		if prev_spawn == 0:
+			prev_spawn = -1
+		var side = prev_spawn if randi_range(0, 6) == 0 else prev_spawn * -1
 		track_position_spawn[track] = side
 		offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
 		if side == -1:
@@ -91,6 +94,7 @@ func get_obstacle_distribution():
 
 func level_transition_complete(level: int):
 	current_level = level
+	spawn_timer.wait_time = level_timing[current_level - 1]
 	level_timer.start()
 
 func level_wait_complete():
