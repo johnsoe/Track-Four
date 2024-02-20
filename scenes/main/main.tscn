@@ -90,6 +90,7 @@ obstacles_to_spawn = Array[ExtResource("11_tstx5")]([SubResource("Resource_pvbwu
 level_timing = Array[float]([0.4, 0.35, 0.3])
 track_manager = NodePath("../TrackManager")
 obstacle_count = 8
+spawn_mode_odds = Array[float]([0.03, 0.1])
 
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
