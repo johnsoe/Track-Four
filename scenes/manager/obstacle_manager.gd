@@ -44,7 +44,7 @@ func spawn_obstacle():
 		var prev_spawn = track_position_spawn[track]
 		if prev_spawn == 0:
 			prev_spawn = -1
-		var side = prev_spawn if randi_range(0, 6) == 0 else prev_spawn * -1
+		var side = prev_spawn if randi_range(0, 10) == 0 else prev_spawn * -1
 		track_position_spawn[track] = side
 		offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
 		if side == -1:

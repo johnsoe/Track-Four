@@ -43,7 +43,7 @@ spawn_weight = 25
 [sub_resource type="Resource" id="Resource_g0qjg"]
 script = ExtResource("11_tstx5")
 obstacle_scene = ExtResource("11_68ewy")
-spawn_weight = 5
+spawn_weight = 7
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vgg0"]
 
@@ -210,5 +210,4 @@ text = "0m"
 horizontal_alignment = 1
 
 [node name="PauseControls" parent="." instance=ExtResource("30_v6gsa")]
-visible = false
 z_index = 25
