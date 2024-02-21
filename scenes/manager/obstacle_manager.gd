@@ -44,34 +44,35 @@ func spawn_obstacle():
 	if spawn_mode == ObstacleSpawnMode.ALL:
 		for i in range(current_level + 1):
 			var side = 1 if randi_range(0, 1) == 0 else -1
-			spawn_obstacle_for_track(i, side)
+			spawn_obstacle_for_track(i, side, 0)
 	elif spawn_mode == ObstacleSpawnMode.GAP:
 		for i in range(2):
 			var side = 1 if i == 0 else -1
-			spawn_obstacle_for_track(track, side)
+			spawn_obstacle_for_track(track, side, 0)
 	else:
 		var prev_spawn = track_position_spawn[track]
 		var side = prev_spawn if randi_range(0, 50) == 0 else prev_spawn * -1
 		spawn_obstacle_for_track(track, side)
 	
-	spawned_obstacle_count += 1	
+	spawned_obstacle_count += 1
 
 
-func spawn_obstacle_for_track(track: int, side: int):
+func spawn_obstacle_for_track(track: int, side: int, obstacle_index: int = -1):
 	var track_width = track_manager.get_track_width(current_level)
 	var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
-	var obstacle_inst = instantiate_random_obstacle()
+	var obstacle_inst
+	if obstacle_index == -1:
+		var index = pull_index_from_weighted_array(obstacles_odds)
+		obstacle_inst = obstacles_to_spawn[index].obstacle_scene.instantiate() as Obstacle2D
+	else:
+		obstacle_inst = obstacles_to_spawn[obstacle_index].obstacle_scene.instantiate() as Obstacle2D
+
 	get_parent().add_child(obstacle_inst)
 	var offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
 	obstacle_inst.global_position = spawn_position + offset
 	if side == -1:
 		obstacle_inst.flip()
 	track_position_spawn[track] = side
-
-
-func instantiate_random_obstacle():
-	var index = pull_index_from_weighted_array(obstacles_odds)
-	return obstacles_to_spawn[index].obstacle_scene.instantiate() as Obstacle2D
 
 
 func on_level_transition(level: int):
