@@ -28,7 +28,7 @@
 [ext_resource type="TileSet" uid="uid://n07x8aew4fd5" path="res://resources/final_tiles.tres" id="18_hph6g"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="20_qstc3"]
 [ext_resource type="PackedScene" uid="uid://bwy1yoam660i2" path="res://scenes/obstacle/basic_obstacle.tscn" id="22_iqq63"]
-[ext_resource type="Script" path="res://scenes/main/death_screen.gd" id="23_8kcot"]
+[ext_resource type="PackedScene" uid="uid://bsevlm315pjnm" path="res://scenes/ui/death_screen.tscn" id="29_ekebo"]
 [ext_resource type="FontFile" uid="uid://b83810j7va52" path="res://resources/FontAwesome.ttf" id="29_fy6yo"]
 [ext_resource type="PackedScene" uid="uid://dd31khm8ampde" path="res://scenes/ui/pause_controls.tscn" id="30_v6gsa"]
 
@@ -135,47 +135,7 @@ pan_speed = -200
 
 [node name="VelocityComponent" parent="TrackManager/TileMap" instance=ExtResource("20_qstc3")]
 
-[node name="DeathScreen" type="Control" parent="."]
-visible = false
-z_index = 25
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="DeathScreen"]
-process_mode = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -27.0
-offset_top = -30.5
-offset_right = 27.0
-offset_bottom = 30.5
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("23_8kcot")
-
-[node name="Panel" type="Panel" parent="DeathScreen/MarginContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="DeathScreen/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Game Over"
-
-[node name="Button" type="Button" parent="DeathScreen/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Reset"
+[node name="DeathScreen" parent="." instance=ExtResource("29_ekebo")]
 
 [node name="Distance" type="Control" parent="."]
 z_index = 25
@@ -213,4 +173,5 @@ text = "0m"
 horizontal_alignment = 1
 
 [node name="PauseControls" parent="." instance=ExtResource("30_v6gsa")]
+visible = false
 z_index = 25

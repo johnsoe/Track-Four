@@ -1,14 +1,20 @@
 extends Node
 
 @onready var track_manager: TrackManager = $TrackManager
-@onready var swap_manager: SwapManager = $SwapManager
 @onready var death_screen = $DeathScreen 
+@onready var distance_manager: DistanceManager = $DistanceManager
 
 @export var ball_scene: PackedScene
 @export var ball_sprites: Array[CompressedTexture2D]
 
+var current_score = 0
+var highscore = 0
+var save_path = "user://score.save"
+
 func _ready():
+	load_score()
 	Events.on_game_over.connect(handle_game_over)
+	distance_manager.on_distance_updated.connect(handle_distance_update)
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
@@ -22,11 +28,27 @@ func _ready():
 		Events.emit_ball_spawn(ball_inst, i)
 
 
-func _process(delta):
-	pass
-
-
 func handle_game_over():
+	save_score()
 	get_tree().paused = true
 	death_screen.visible = true
+	death_screen.set_high_score(highscore)
+
+
+func save_score():
+	if current_score > highscore:
+		highscore = current_score
+		var file = FileAccess.open(save_path, FileAccess.WRITE)
+		file.store_var(current_score)
+
+
+func load_score():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		highscore = file.get_var()
+	else:
+		highscore = 0
 	
+
+func handle_distance_update(distance: int):
+	current_score = distance
