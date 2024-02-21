@@ -111,12 +111,7 @@ func _input(event):
 			return
 			
 		var track_id = tile_data.get_custom_data("track_id")
-		# This is dirty hack for now
-		if tile_clicked.x == 0:
-			var dict = {0:1, 1:0}
-			Events.on_swap_tracks.emit(dict)
-		else:
-			Events.on_track_clicked.emit(track_id)
+		Events.on_track_clicked.emit(track_id)
 
 
 func handle_level_update(level: int):
