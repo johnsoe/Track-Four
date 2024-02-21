@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=37 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -19,9 +19,12 @@
 [ext_resource type="Script" path="res://scenes/obstacle/obstacle_model.gd" id="11_tstx5"]
 [ext_resource type="Texture2D" uid="uid://b4gdupglqcj3q" path="res://scenes/player/red_body_circle.png" id="12_k076o"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="13_suwhj"]
+[ext_resource type="Resource" uid="uid://dgbkndtuv32dk" path="res://resources/level/level_one.tres" id="14_76tag"]
 [ext_resource type="PackedScene" uid="uid://uoweb5y1k8c2" path="res://scenes/portal/level_portal_start.tscn" id="14_ip4ow"]
 [ext_resource type="PackedScene" uid="uid://drxv1hmvosxkh" path="res://scenes/portal/portal.tscn" id="14_kelng"]
+[ext_resource type="Resource" uid="uid://7gcb7afk2slf" path="res://resources/level/level_two.tres" id="15_lm65e"]
 [ext_resource type="PackedScene" uid="uid://bxhjepca7lp6d" path="res://scenes/portal/level_portal_end.tscn" id="15_yux1c"]
+[ext_resource type="Resource" uid="uid://b3vqw3l7g085v" path="res://resources/level/level_three.tres" id="16_1nduw"]
 [ext_resource type="TileSet" uid="uid://n07x8aew4fd5" path="res://resources/final_tiles.tres" id="18_hph6g"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="20_qstc3"]
 [ext_resource type="PackedScene" uid="uid://bwy1yoam660i2" path="res://scenes/obstacle/basic_obstacle.tscn" id="22_iqq63"]
@@ -87,10 +90,9 @@ shape = SubResource("RectangleShape2D_e1jge")
 
 [node name="ObstacleManager" parent="." node_paths=PackedStringArray("track_manager") instance=ExtResource("9_ctpii")]
 obstacles_to_spawn = Array[ExtResource("11_tstx5")]([SubResource("Resource_pvbwu"), SubResource("Resource_g0qjg")])
-level_timing = Array[float]([0.4, 0.35, 0.3])
 track_manager = NodePath("../TrackManager")
 obstacle_count = 8
-spawn_mode_odds = Array[float]([0.03, 0.1])
+level_models = Array[Resource("res://resources/level/level_model.gd")]([ExtResource("14_76tag"), ExtResource("15_lm65e"), ExtResource("16_1nduw")])
 
 [node name="DistanceManager" parent="." instance=ExtResource("3_jfvsn")]
 
@@ -107,7 +109,7 @@ camera_manager = NodePath("../CameraManager")
 [node name="LevelManager" parent="." node_paths=PackedStringArray("distance_manager", "track_manager") instance=ExtResource("7_pvy6e")]
 distance_manager = NodePath("../DistanceManager")
 track_manager = NodePath("../TrackManager")
-level_thresholds = Array[int]([2, 6])
+level_thresholds = Array[int]([10, 25])
 level_portal_start = ExtResource("14_ip4ow")
 level_portal_end = ExtResource("15_yux1c")
 ball_scene = ExtResource("5_62d2l")

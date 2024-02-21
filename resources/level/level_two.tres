@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LevelModel" load_steps=2 format=3 uid="uid://7gcb7afk2slf"]
+
+[ext_resource type="Script" path="res://resources/level/level_model.gd" id="1_rcd2c"]
+
+[resource]
+script = ExtResource("1_rcd2c")
+start_spawn_rate = 0.5
+end_spawn_rate = 0.35
+spawn_rate_lerp_duration = 10.0
+level_duration = 15.0
+gap_obstacle_spawn_chance = 0.04
+all_obstacle_spawn_chance = 0.06

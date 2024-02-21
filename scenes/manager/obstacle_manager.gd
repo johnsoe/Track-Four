@@ -1,10 +1,9 @@
 extends Node
 
 @export var obstacles_to_spawn: Array[ObstacleModel]
-@export var level_timing: Array[float]
 @export var track_manager: TrackManager
 @export var obstacle_count: int
-@export var spawn_mode_odds: Array[float]
+@export var level_models: Array[LevelModel]
 
 @onready var spawn_timer = $BasicSpawnTimer
 @onready var level_timer = $LevelWaitTimer
@@ -18,7 +17,7 @@ var obstacles_odds: Array[int] = []
  
 
 func _ready():
-	spawn_timer.wait_time = level_timing[0]
+	spawn_timer.wait_time = level_models[0].start_spawn_rate
 	spawn_timer.timeout.connect(spawn_obstacle)
 	level_timer.timeout.connect(level_wait_complete)
 	Events.begin_level_transition.connect(on_level_transition)
@@ -33,48 +32,34 @@ func spawn_obstacle():
 		
 	var track = get_random_track_from_dist()
 	last_obstacles_track[spawned_obstacle_count % obstacle_count] = track
-	var track_width = track_manager.get_track_width(current_level)
-	var offset = Vector2.ZERO
+	var spawn_mode = level_models[current_level - 1].get_spawn_mode()
 	
-	var all_spawn = randf_range(0, 1)
-	if all_spawn < spawn_mode_odds[0]:
+	if spawn_mode == ObstacleSpawnMode.ALL:
 		for i in range(current_level + 1):
-			var spawn_position = track_manager.get_track_spawn_position(i, current_level, TrackManager.LOCATION.TOP)
-			var obstacle_inst = instantiate_random_obstacle()
-			get_parent().add_child(obstacle_inst)
 			var side = 1 if randi_range(0, 1) == 0 else -1
-			offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
-			obstacle_inst.global_position = spawn_position + offset
-			if side == -1:
-				obstacle_inst.flip()
-	elif all_spawn < spawn_mode_odds[1] and current_level < 3:
+			spawn_obstacle_for_track(i, side)
+	elif spawn_mode == ObstacleSpawnMode.GAP:
 		for i in range(2):
-			var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
-			var obstacle_inst = instantiate_random_obstacle()
-			get_parent().add_child(obstacle_inst)
 			var side = 1 if i == 0 else -1
-			offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
-			obstacle_inst.global_position = spawn_position + offset
-			if side == -1:
-				obstacle_inst.flip()
+			spawn_obstacle_for_track(track, side)
 	else:
-		var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
-		var obstacle_inst = instantiate_random_obstacle()
-		get_parent().add_child(obstacle_inst)
-		if obstacle_inst.is_offset:
-			var prev_spawn = track_position_spawn[track]
-			if prev_spawn == 0:
-				prev_spawn = -1
-			var side = prev_spawn if randi_range(0, 10) == 0 else prev_spawn * -1
-			track_position_spawn[track] = side
-			offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
-			if side == -1:
-				obstacle_inst.flip()
-		else:
-			track_position_spawn[track] = 0
-			
-		obstacle_inst.global_position = spawn_position + offset
-		spawned_obstacle_count += 1
+		var prev_spawn = track_position_spawn[track]
+		var side = prev_spawn if randi_range(0, 10) == 0 else prev_spawn * -1
+		spawn_obstacle_for_track(track, side)
+	
+	spawned_obstacle_count += 1	
+
+
+func spawn_obstacle_for_track(track: int, side: int):
+	var track_width = track_manager.get_track_width(current_level)
+	var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
+	var obstacle_inst = instantiate_random_obstacle()
+	get_parent().add_child(obstacle_inst)
+	var offset = Vector2((track_width - obstacle_inst.width()) * side / 2.0, 0)
+	obstacle_inst.global_position = spawn_position + offset
+	if side == -1:
+		obstacle_inst.flip()
+	track_position_spawn[track] = side
 
 
 func instantiate_random_obstacle():
@@ -115,7 +100,7 @@ func get_obstacle_distribution():
 
 func level_transition_complete(level: int):
 	current_level = level
-	spawn_timer.wait_time = level_timing[current_level - 1]
+	spawn_timer.wait_time = level_models[current_level - 1].start_spawn_rate
 	level_timer.start()
 
 func level_wait_complete():
