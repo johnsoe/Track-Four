@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_gxwvk")
-start_spawn_rate = 0.6
-end_spawn_rate = 0.4
+start_spawn_rate = 0.8
+end_spawn_rate = 0.5
 spawn_rate_lerp_duration = 20.0
 gap_obstacle_spawn_chance = 0.02
 all_obstacle_spawn_chance = 0.02

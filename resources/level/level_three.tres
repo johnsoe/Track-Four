@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_lbevh")
-start_spawn_rate = 0.45
+start_spawn_rate = 0.5
 end_spawn_rate = 0.3
 spawn_rate_lerp_duration = 20.0
 gap_obstacle_spawn_chance = 2.08165e-12
