@@ -4,7 +4,6 @@ class_name LevelModel
 @export var start_spawn_rate: float
 @export var end_spawn_rate: float
 @export var spawn_rate_lerp_duration: float
-@export var level_duration: float
 
 @export var gap_obstacle_spawn_chance: float
 @export var all_obstacle_spawn_chance: float

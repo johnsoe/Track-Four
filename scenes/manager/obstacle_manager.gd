@@ -8,6 +8,7 @@ extends Node
 @onready var spawn_timer = $BasicSpawnTimer
 @onready var level_timer = $LevelWaitTimer
 
+var current_level_time: float = 0
 var is_in_transition = false
 var current_level = 1
 var last_obstacles_track = []
@@ -15,6 +16,9 @@ var track_position_spawn = [1, -1, 1, -1]
 var spawned_obstacle_count: int = 0
 var obstacles_odds: Array[int] = []
  
+func _process(delta):
+	current_level_time += delta
+
 
 func _ready():
 	spawn_timer.wait_time = level_models[0].start_spawn_rate
@@ -27,6 +31,9 @@ func _ready():
 
 
 func spawn_obstacle():
+	var level_model = level_models[current_level - 1]
+	var level_spawn_timer_weight = clampf(current_level_time/level_model.spawn_rate_lerp_duration, 0, 1)
+	spawn_timer.wait_time = lerp(level_model.start_spawn_rate, level_model.end_spawn_rate, level_spawn_timer_weight)
 	if is_in_transition:
 		return
 		
@@ -105,3 +112,4 @@ func level_transition_complete(level: int):
 
 func level_wait_complete():
 	is_in_transition = false
+	current_level_time = 0

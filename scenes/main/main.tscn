@@ -46,7 +46,7 @@ spawn_weight = 25
 [sub_resource type="Resource" id="Resource_g0qjg"]
 script = ExtResource("11_tstx5")
 obstacle_scene = ExtResource("11_68ewy")
-spawn_weight = 7
+spawn_weight = 3
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vgg0"]
 
