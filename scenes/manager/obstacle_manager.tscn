@@ -10,4 +10,5 @@ wait_time = 0.45
 autostart = true
 
 [node name="LevelWaitTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true

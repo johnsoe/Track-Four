@@ -51,7 +51,7 @@ func spawn_obstacle():
 			spawn_obstacle_for_track(track, side)
 	else:
 		var prev_spawn = track_position_spawn[track]
-		var side = prev_spawn if randi_range(0, 10) == 0 else prev_spawn * -1
+		var side = prev_spawn if randi_range(0, 50) == 0 else prev_spawn * -1
 		spawn_obstacle_for_track(track, side)
 	
 	spawned_obstacle_count += 1	

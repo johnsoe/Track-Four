@@ -8,7 +8,7 @@ extends Node
 @export var ball_sprites: Array[CompressedTexture2D]
 
 var current_score = 0
-var highscore = 0
+var high_score = 0
 var save_path = "user://score.save"
 
 func _ready():
@@ -32,12 +32,12 @@ func handle_game_over():
 	save_score()
 	get_tree().paused = true
 	death_screen.visible = true
-	death_screen.set_high_score(highscore)
+	death_screen.set_scores(high_score, current_score)
 
 
 func save_score():
-	if current_score > highscore:
-		highscore = current_score
+	if current_score > high_score:
+		high_score = current_score
 		var file = FileAccess.open(save_path, FileAccess.WRITE)
 		file.store_var(current_score)
 
@@ -45,9 +45,9 @@ func save_score():
 func load_score():
 	if FileAccess.file_exists(save_path):
 		var file = FileAccess.open(save_path, FileAccess.READ)
-		highscore = file.get_var()
+		high_score = file.get_var()
 	else:
-		highscore = 0
+		high_score = 0
 	
 
 func handle_distance_update(distance: int):
