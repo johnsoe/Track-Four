@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bsevlm315pjnm" path="res://scenes/ui/death_screen.tscn" id="29_ekebo"]
 [ext_resource type="FontFile" uid="uid://b83810j7va52" path="res://resources/FontAwesome.ttf" id="29_fy6yo"]
 [ext_resource type="PackedScene" uid="uid://dd31khm8ampde" path="res://scenes/ui/pause_controls.tscn" id="30_v6gsa"]
+[ext_resource type="StyleBox" uid="uid://mn0kgganpbci" path="res://scenes/ui/ui_style_box.tres" id="30_yg70r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hx1"]
 size = Vector2(646, 12)
@@ -47,8 +48,6 @@ spawn_weight = 25
 script = ExtResource("11_tstx5")
 obstacle_scene = ExtResource("11_68ewy")
 spawn_weight = 3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vgg0"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_unvkh")
@@ -136,6 +135,7 @@ pan_speed = -200
 [node name="VelocityComponent" parent="TrackManager/TileMap" instance=ExtResource("20_qstc3")]
 
 [node name="DeathScreen" parent="." instance=ExtResource("29_ekebo")]
+visible = false
 
 [node name="Distance" type="Control" parent="."]
 z_index = 25
@@ -143,10 +143,8 @@ layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
 grow_horizontal = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="Distance"]
@@ -154,23 +152,27 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -48.0
-offset_right = 48.0
-offset_bottom = 28.0
+offset_left = -25.5
+offset_right = 25.5
+offset_bottom = 42.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_6vgg0")
+theme_override_styles/panel = ExtResource("30_yg70r")
 
-[node name="DistanceLabel" type="Label" parent="Distance/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Distance/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+
+[node name="DistanceLabel" type="Label" parent="Distance/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("29_fy6yo")
 theme_override_font_sizes/font_size = 32
 text = "0m"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseControls" parent="." instance=ExtResource("30_v6gsa")]
 visible = false

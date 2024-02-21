@@ -60,7 +60,7 @@ func spawn_obstacle():
 func spawn_obstacle_for_track(track: int, side: int, obstacle_index: int = -1):
 	var track_width = track_manager.get_track_width(current_level)
 	var spawn_position = track_manager.get_track_spawn_position(track, current_level, TrackManager.LOCATION.TOP)
-	var obstacle_inst
+	var obstacle_inst: Obstacle2D
 	if obstacle_index == -1:
 		var index = pull_index_from_weighted_array(obstacles_odds)
 		obstacle_inst = obstacles_to_spawn[index].obstacle_scene.instantiate() as Obstacle2D
@@ -72,6 +72,7 @@ func spawn_obstacle_for_track(track: int, side: int, obstacle_index: int = -1):
 	obstacle_inst.global_position = spawn_position + offset
 	if side == -1:
 		obstacle_inst.flip()
+	obstacle_inst.track = track
 	track_position_spawn[track] = side
 
 

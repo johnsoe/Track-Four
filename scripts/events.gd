@@ -2,7 +2,7 @@ extends Node
 
 signal on_track_clicked(track: int)
 signal on_swap_tracks(swaps: Dictionary)
-signal on_game_over()
+signal on_game_over(track: int)
 
 signal begin_level_transition(level: int)
 signal complete_level_transition(level: int)
@@ -29,5 +29,5 @@ func emit_ball_spawn(ball: Node2D, track_id: int):
 	ball_spawn.emit(ball, track_id)
 
 
-func emit_game_over():
-	on_game_over.emit()
+func emit_game_over(track: int):
+	on_game_over.emit(track)

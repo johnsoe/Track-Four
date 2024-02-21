@@ -5,13 +5,14 @@ class_name Obstacle2D
 @onready var sprite = $Sprite2D
 
 var is_offset = true
+var track = 0
 
 func _ready():
 	area.body_entered.connect(player_collision)
 
 
 func player_collision(other: Node2D):
-	Events.emit_game_over()
+	Events.emit_game_over(track)
 	
 
 func flip():

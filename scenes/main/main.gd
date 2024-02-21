@@ -28,10 +28,11 @@ func _ready():
 		Events.emit_ball_spawn(ball_inst, i)
 
 
-func handle_game_over():
+func handle_game_over(track: int):
 	save_score()
 	get_tree().paused = true
 	death_screen.visible = true
+	death_screen.set_track_collision(track)
 	death_screen.set_scores(high_score, current_score)
 
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UIColors" load_steps=2 format=3 uid="uid://c43lxqjaeie1w"]
+
+[ext_resource type="Script" path="res://resources/colors/colors.gd" id="1_kn3c3"]
+
+[resource]
+script = ExtResource("1_kn3c3")
+colors = Array[Color]([Color(1, 0.87451, 0.486275, 1), Color(0.443137, 0.796078, 0.333333, 1), Color(1, 0.517647, 0.294118, 1), Color(0.262745, 0.772549, 0.980392, 1), Color(0.505882, 0.333333, 0.85098, 1)])
+border_colors = Array[Color]([Color(0.882353, 0.666667, 0.184314, 1), Color(0.196078, 0.513726, 0.137255, 1), Color(0.54902, 0.2, 0.0784314, 1), Color(0, 0.384314, 0.545098, 1)])
