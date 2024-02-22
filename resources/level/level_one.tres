@@ -8,4 +8,4 @@ start_spawn_rate = 0.8
 end_spawn_rate = 0.5
 spawn_rate_lerp_duration = 15.0
 gap_obstacle_spawn_chance = 0.02
-all_obstacle_spawn_chance = 0.02
+all_obstacle_spawn_chance = 0.06

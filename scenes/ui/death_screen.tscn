@@ -35,7 +35,7 @@ theme_override_styles/panel = ExtResource("3_2nmow")
 process_mode = 3
 layout_mode = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
@@ -46,7 +46,8 @@ size_flags_vertical = 4
 
 [node name="GameOverLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 48
 text = "Game Over"
 horizontal_alignment = 1
 
@@ -54,7 +55,8 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 16
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
 text = "High Score: 0"
 horizontal_alignment = 1
 
@@ -62,23 +64,27 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 32
 text = "Score: 0"
 horizontal_alignment = 1
 
 [node name="ResetButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Reset"
+theme_override_font_sizes/font_size = 32
+text = "Play Again
+"
 
 [node name="RateButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Rate"
 
 [node name="ShareButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Share
 "
 
