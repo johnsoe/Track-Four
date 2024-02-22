@@ -3,6 +3,7 @@ extends Node
 @onready var track_manager: TrackManager = $TrackManager
 @onready var death_screen = $DeathScreen 
 @onready var distance_manager: DistanceManager = $DistanceManager
+@onready var countdown = $StartCountdown
 
 @export var ball_scene: PackedScene
 @export var ball_sprites: Array[CompressedTexture2D]
@@ -15,6 +16,7 @@ func _ready():
 	load_score()
 	Events.on_game_over.connect(handle_game_over)
 	distance_manager.on_distance_updated.connect(handle_distance_update)
+	countdown.countdown_complete.connect(on_countdown_complete)
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
@@ -26,6 +28,8 @@ func _ready():
 		add_child(ball_inst)
 		ball_inst.global_position = ball_spawn_pos
 		Events.emit_ball_spawn(ball_inst, i)
+	
+	get_tree().paused = true
 
 
 func handle_game_over(track: int):
@@ -53,3 +57,7 @@ func load_score():
 
 func handle_distance_update(distance: int):
 	current_score = distance
+
+
+func on_countdown_complete():
+	get_tree().paused = false

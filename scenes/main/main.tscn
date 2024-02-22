@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ba6umf0nt184o"]
+[gd_scene load_steps=38 format=3 uid="uid://ba6umf0nt184o"]
 
 [ext_resource type="Script" path="res://scenes/main/camera.gd" id="1_atycn"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_unvkh"]
@@ -32,6 +32,7 @@
 [ext_resource type="FontFile" uid="uid://b83810j7va52" path="res://resources/FontAwesome.ttf" id="29_fy6yo"]
 [ext_resource type="PackedScene" uid="uid://dd31khm8ampde" path="res://scenes/ui/pause_controls.tscn" id="30_v6gsa"]
 [ext_resource type="StyleBox" uid="uid://mn0kgganpbci" path="res://scenes/ui/ui_style_box.tres" id="30_yg70r"]
+[ext_resource type="Script" path="res://scenes/ui/countdown.gd" id="33_uj8js"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hx1"]
 size = Vector2(646, 12)
@@ -56,16 +57,16 @@ ball_sprites = Array[CompressedTexture2D]([ExtResource("6_xxwom"), ExtResource("
 
 [node name="CameraManager" parent="." instance=ExtResource("2_n7o10")]
 script = ExtResource("1_atycn")
-pan_speed = 199.65
 
 [node name="Camera2D" type="Camera2D" parent="CameraManager"]
+process_mode = 3
 position = Vector2(297, 512)
 
 [node name="TopSpawner" type="Node2D" parent="."]
 position = Vector2(296, -139)
 
 [node name="BallSpawner" type="Node2D" parent="."]
-position = Vector2(297, 795)
+position = Vector2(296, 745)
 
 [node name="Area2D" type="Area2D" parent="BallSpawner"]
 collision_layer = 4
@@ -177,3 +178,45 @@ vertical_alignment = 1
 [node name="PauseControls" parent="." instance=ExtResource("30_v6gsa")]
 visible = false
 z_index = 25
+
+[node name="StartCountdown" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -223.0
+offset_right = 21.0
+offset_bottom = -183.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("33_uj8js")
+countdown_start = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="StartCountdown"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -50.0
+offset_right = 49.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("30_yg70r")
+
+[node name="CountdownLabel" type="Label" parent="StartCountdown/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="StartCountdown"]
+autostart = true
