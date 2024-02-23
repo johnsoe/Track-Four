@@ -28,6 +28,7 @@ func _ready():
 	Events.complete_level_transition.connect(level_transition_complete)
 	last_obstacles_track.resize(obstacle_count)
 	obstacles_odds.assign(obstacles_to_spawn.map(func (obs): return obs.spawn_weight))
+	randomize()
 
 
 func spawn_obstacle():

@@ -47,6 +47,7 @@ theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 14
 
 [node name="OptionsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(250, 2.08165e-12)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 12
@@ -54,13 +55,13 @@ theme_override_constants/separation = 12
 [node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/OptionsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Play
 "
 
 [node name="SettingsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/OptionsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Settings
 "
