@@ -109,7 +109,7 @@ camera_manager = NodePath("../CameraManager")
 [node name="LevelManager" parent="." node_paths=PackedStringArray("distance_manager", "track_manager") instance=ExtResource("7_pvy6e")]
 distance_manager = NodePath("../DistanceManager")
 track_manager = NodePath("../TrackManager")
-level_thresholds = Array[int]([15, 30])
+level_thresholds = Array[int]([20, 40])
 level_portal_start = ExtResource("14_ip4ow")
 level_portal_end = ExtResource("15_yux1c")
 ball_scene = ExtResource("5_62d2l")
@@ -137,6 +137,8 @@ pan_speed = -200
 
 [node name="DeathScreen" parent="." instance=ExtResource("29_ekebo")]
 visible = false
+offset_top = -45.0
+offset_bottom = -45.0
 
 [node name="Distance" type="Control" parent="."]
 z_index = 25
@@ -171,7 +173,7 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("29_fy6yo")
 theme_override_font_sizes/font_size = 32
-text = "0m"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

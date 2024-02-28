@@ -16,7 +16,7 @@ func _ready():
 
 
 func on_distance_updated(distance: int):
-	distance_label.text = str(distance) + "m"
+	distance_label.text = str(distance)
 	return
 	if swap_thresholds.any(func(number): return distance == number):
 		# determine which tracks to swap, then spawn swap scene.
