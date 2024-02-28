@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://w5y26n8l4ooa"]
+[gd_scene load_steps=14 format=3 uid="uid://w5y26n8l4ooa"]
 
-[ext_resource type="Texture2D" uid="uid://byrq7vvgut6mt" path="res://scenes/player/yellow_body_circle.png" id="1_2op8c"]
 [ext_resource type="Script" path="res://scenes/player/player_ball.gd" id="1_2pulf"]
+[ext_resource type="Shader" uid="uid://b6yed13w4cc4e" path="res://scenes/player/player_vis_shader.tres" id="3_0y0lt"]
 [ext_resource type="Texture2D" uid="uid://ulp6l8ps0shh" path="res://scenes/player/purple_body_circle.png" id="3_02pio"]
+[ext_resource type="Texture2D" uid="uid://du7djnkxkixue" path="res://scenes/player/lb-001.png" id="4_rhpqj"]
 
 [sub_resource type="Gradient" id="Gradient_h86jf"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -45,6 +46,9 @@ scale_curve = SubResource("CurveTexture_hsdxc")
 color_ramp = SubResource("GradientTexture1D_5w2o7")
 hue_variation_curve = SubResource("CurveTexture_7k77u")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jify"]
+shader = ExtResource("3_0y0lt")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpmd4"]
 radius = 12.0
 
@@ -64,8 +68,9 @@ lifetime = 0.2
 trail_sections = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1jify")
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_2op8c")
+texture = ExtResource("4_rhpqj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hpmd4")

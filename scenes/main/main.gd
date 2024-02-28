@@ -4,18 +4,19 @@ extends Node
 @onready var death_screen = $DeathScreen 
 @onready var distance_manager: DistanceManager = $DistanceManager
 @onready var countdown = $StartCountdown
+@onready var distance_label = %DistanceLabel
 
 @export var ball_scene: PackedScene
 @export var ball_sprites: Array[CompressedTexture2D]
 
-var current_score = 0
+var current_score = 0 
 var high_score = 0
 var save_path = "user://score.save"
 
 func _ready():
 	load_score()
 	Events.on_game_over.connect(handle_game_over)
-	distance_manager.on_distance_updated.connect(handle_distance_update)
+	Events.on_obstacle_passed.connect(handle_obstacle_passed)
 	countdown.countdown_complete.connect(on_countdown_complete)
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
@@ -55,8 +56,9 @@ func load_score():
 		high_score = 0
 	
 
-func handle_distance_update(distance: int):
-	current_score = distance
+func handle_obstacle_passed():
+	current_score += 1
+	distance_label.text = str(current_score)
 
 
 func on_countdown_complete():

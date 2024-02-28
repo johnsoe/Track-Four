@@ -7,6 +7,7 @@ signal on_game_over(track: int)
 signal begin_level_transition(level: int)
 signal complete_level_transition(level: int)
 signal ball_spawn(ball: Node2D, track_id: int)
+signal on_obstacle_passed()
 
 
 func emit_on_track_clicked(track: int):
@@ -31,3 +32,7 @@ func emit_ball_spawn(ball: Node2D, track_id: int):
 
 func emit_game_over(track: int):
 	on_game_over.emit(track)
+	
+
+func emit_obstacle_passed():
+	on_obstacle_passed.emit()
