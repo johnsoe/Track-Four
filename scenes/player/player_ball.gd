@@ -5,19 +5,24 @@ class_name PlayerBall
 @export var x_speed: int
 @export var sprite_override: CompressedTexture2D
 
-@onready var trail: GPUParticles2D = $Trail
 @onready var sprite = $Sprite2D
+@onready var top_legs = $LegSets/LegsTop
+@onready var mid_legs = $LegSets/LegsMid
+@onready var bot_legs = $LegSets/LegsBot
 
 func _ready():
 	Events.on_track_clicked.connect(handle_track_click)
 	sprite.texture = sprite_override
-	trail.texture = sprite_override
+	
+	var anim_start_percent = randf()
+	top_legs.seek_to_position(anim_start_percent)
+	mid_legs.seek_to_position(anim_start_percent)
+	bot_legs.seek_to_position(anim_start_percent)
 
 
 func _process(delta):
 	velocity = Vector2(x_speed, 0)
 	move_and_slide()
-	#trail.process_material.direction = Vector3(velocity.x, velocity.x, 0)
 
 
 func handle_track_click(track: int):
