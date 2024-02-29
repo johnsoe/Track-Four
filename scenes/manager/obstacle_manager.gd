@@ -16,6 +16,7 @@ var track_position_spawn = [1, -1, 1, -1]
 var spawned_obstacle_count: int = 0
 var obstacles_odds: Array[int] = []
  
+
 func _process(delta):
 	current_level_time += delta
 
@@ -110,9 +111,9 @@ func get_obstacle_distribution():
 
 func level_transition_complete(level: int):
 	current_level = level
-	spawn_timer.wait_time = level_models[current_level - 1].start_spawn_rate
 	level_timer.start()
 
 func level_wait_complete():
 	is_in_transition = false
 	current_level_time = 0
+	spawn_timer.wait_time = level_models[current_level - 1].start_spawn_rate
