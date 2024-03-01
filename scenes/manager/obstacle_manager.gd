@@ -113,6 +113,7 @@ func level_transition_complete(level: int):
 	current_level = level
 	level_timer.start()
 
+
 func level_wait_complete():
 	is_in_transition = false
 	current_level_time = 0

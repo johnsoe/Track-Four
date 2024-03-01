@@ -9,6 +9,7 @@ signal transition_complete()
 @export var top_spawner: Node2D
 @export var object_eraser: Node2D
 @export var pan_speed: int
+@export var draw_with_updated_tiles: bool
 
 var top_draw_row: int
 var bottom_erase_row: int
@@ -46,7 +47,10 @@ func _process(delta):
 func draw_next_row(row: int):
 	match draw_mode:
 		TrackManager.DRAW_MODE.STANDARD:
-			draw_standard_row(row)
+			if draw_with_updated_tiles:
+				draw_updated_row(row)
+			else:
+				draw_standard_row(row)
 		TrackManager.DRAW_MODE.TRANSITION:
 			if prev_draw_mode == TrackManager.DRAW_MODE.TRANSITION:
 				draw_mode = TrackManager.DRAW_MODE.STANDARD
@@ -57,6 +61,40 @@ func draw_next_row(row: int):
 
 
 func draw_standard_row(row: int): 
+	top_draw_row = row
+	var old_barrier_atlas = Vector2i(10, 14)
+	for x in range(0, edge_buffer - 1):
+		set_cell(0, Vector2i(x, row), 0, old_barrier_atlas)
+	
+	for x in range(total_width - edge_buffer + 1, total_width):
+		set_cell(0, Vector2i(x, row), 0, old_barrier_atlas)
+	
+	for x in range(0, total_width - (edge_buffer * 2)):
+		var track = x / (current_width + 1)
+		var atlas_coords: Vector2i
+		if x % (current_width + 1) == 0:
+			atlas_coords = Vector2i(atlas_x_start + (track * 6), 9)
+		elif x % (current_width + 1) == current_width:
+			atlas_coords = old_barrier_atlas
+		elif x % (current_width + 1) == current_width - 1:
+			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
+		else:
+			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
+		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
+
+
+func draw_transition_block(row: int):
+	top_draw_row -= 9
+	
+	for y in range(row, row - 4, -1):
+		set_row_as_barrier(y)
+	
+	#gap for skybox
+	for y in range(row - 8, row - 12, -1):
+		set_row_as_barrier(y)
+
+
+func draw_updated_row(row: int):
 	top_draw_row = row
 	var barrier_atlas = Vector2i(10, 14)
 	for x in range(0, edge_buffer):
@@ -77,17 +115,6 @@ func draw_standard_row(row: int):
 		else:
 			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
 		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
-
-
-func draw_transition_block(row: int):
-	top_draw_row -= 9
-	
-	for y in range(row, row - 4, -1):
-		set_row_as_barrier(y)
-	
-	#gap for skybox
-	for y in range(row - 8, row - 12, -1):
-		set_row_as_barrier(y)
 
 
 func set_row_as_barrier(row: int):
