@@ -16,8 +16,8 @@ func _ready():
 
 
 func reset_game():
-	get_tree().reload_current_scene()
 	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 
 func set_scores(high_score: int, game_score: int):
@@ -26,9 +26,5 @@ func set_scores(high_score: int, game_score: int):
 
 
 # This is so ugly, need designer to make work
-func set_track_collision(track: int):
+func set_track_collision(_track: int):
 	pass
-	#if track < 0 || track > 3:
-	#	return
-	#var stylebox = panel.get_theme_stylebox("panel") as StyleBoxFlat
-	#stylebox.border_color = colors.border_colors[track]

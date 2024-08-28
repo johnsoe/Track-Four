@@ -20,7 +20,7 @@ func _ready():
 	bot_legs.seek_to_position(anim_start_percent)
 
 
-func _process(delta):
+func _process(_delta):
 	velocity = Vector2(x_speed, 0)
 	move_and_slide()
 

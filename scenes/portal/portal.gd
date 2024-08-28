@@ -18,7 +18,7 @@ func set_swap(s: Vector2):
 	sprite.texture = portal_sprites[s.y]
 
 
-func on_body_entered(other: Node2D):
+func on_body_entered(_other: Node2D):
 	if swap == null:
 		return
 	on_player_collide.emit(swap)

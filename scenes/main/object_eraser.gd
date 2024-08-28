@@ -8,5 +8,5 @@ func _ready():
 	area.area_entered.connect(on_area_entered)
 
 
-func on_area_entered(area: Area2D):
-	area.get_parent().queue_free()
+func on_area_entered(other: Area2D):
+	other.get_parent().queue_free()

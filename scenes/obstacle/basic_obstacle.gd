@@ -12,11 +12,11 @@ func _ready():
 	area.area_exited.connect(spawn_passed)
 
 
-func player_collision(other: Node2D):
+func player_collision(_other: Node2D):
 	Events.emit_game_over(track)
 	
 
-func spawn_passed(area: Area2D):
+func spawn_passed(_area: Area2D):
 	Events.emit_obstacle_passed()
 	
 

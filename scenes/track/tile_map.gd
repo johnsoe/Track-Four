@@ -5,11 +5,10 @@ signal transition_complete()
 
 @export var atlas_x_start: int
 @export var track_model: TrackModel
-@export var cracked_tile_odds: int
 @export var top_spawner: Node2D
 @export var object_eraser: Node2D
-@export var pan_speed: int
 @export var draw_with_updated_tiles: bool
+@export var tile_distribution: Array[float]
 
 var top_draw_row: int
 var bottom_erase_row: int
@@ -30,7 +29,7 @@ func _ready():
 	Events.begin_level_transition.connect(handle_level_update)
 
 
-func _process(delta):
+func _process(_delta):
 	var top_spawner_coords = local_to_map(to_local(top_spawner.global_position))
 	var row = top_spawner_coords.y
 	
@@ -38,7 +37,7 @@ func _process(delta):
 	var bottom_row = bottom_spawner_coords.y
 	
 	if (row < top_draw_row):
-		draw_next_row(row)
+		draw_next_row(top_draw_row - 1)
 	
 	if (bottom_erase_row > bottom_row):
 		erase_bottom_row(bottom_erase_row)
@@ -96,25 +95,24 @@ func draw_transition_block(row: int):
 
 func draw_updated_row(row: int):
 	top_draw_row = row
-	var barrier_atlas = Vector2i(10, 14)
 	for x in range(0, edge_buffer):
-		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
+		set_cell(0, Vector2i(x, row), 1, Vector2i(0, 4))
 	
 	for x in range(total_width - edge_buffer, total_width):
-		set_cell(0, Vector2i(x, row), 0, barrier_atlas)
+		set_cell(0, Vector2i(x, row), 1, Vector2i(4, 4))
 	
 	for x in range(0, total_width - (edge_buffer * 2)):
 		var track = x / (current_width + 1)
 		var atlas_coords: Vector2i
-		if x % (current_width + 1) == 0:
-			atlas_coords = Vector2i(atlas_x_start + (track * 6), 9)
-		elif x % (current_width + 1) == current_width:
-			atlas_coords = barrier_atlas
-		elif x % (current_width + 1) == current_width - 1:
-			atlas_coords = Vector2i(atlas_x_start + 2 + (track * 6), 9)
+		if x % (current_width + 1) == current_width:
+			atlas_coords = Vector2i(track + 1, 4)
 		else:
-			atlas_coords = Vector2i(atlas_x_start + 1 + (track * 6), 9)
-		set_cell(0, Vector2i(x + edge_buffer, row), 0, atlas_coords)
+			var rand = randf()
+			var atlas_x = 0
+			while (rand > tile_distribution[atlas_x]):
+				atlas_x += 1
+			atlas_coords = Vector2i(atlas_x, track)
+		set_cell(0, Vector2i(x + edge_buffer, row), 1, atlas_coords)
 
 
 func set_row_as_barrier(row: int):
@@ -131,8 +129,8 @@ func erase_bottom_row(row: int):
 
 func _input(event):
 	if event is InputEventScreenTouch && event.is_pressed():
-		var position = event.position
-		var tile_clicked = local_to_map(to_local(position))
+		var e_position = event.position
+		var tile_clicked = local_to_map(to_local(e_position))
 		var tile_data = get_cell_tile_data(0, tile_clicked)
 		if tile_data == null:
 			return

@@ -78,7 +78,7 @@ func spawn_obstacle_for_track(track: int, side: int, obstacle_index: int = -1):
 	track_position_spawn[track] = side
 
 
-func on_level_transition(level: int):
+func on_level_transition(_level: int):
 	is_in_transition = true
 
 
@@ -94,10 +94,10 @@ func get_random_track_from_dist():
 func pull_index_from_weighted_array(arr):
 	var sum = arr.reduce(func(accum, num): return accum + num, 0)
 	var temp_sum = 0
-	var num = randi_range(0, sum - 1)
+	var rand_num = randi_range(0, sum - 1)
 	for i in arr.size():
 		temp_sum += arr[i]
-		if num <= temp_sum:
+		if rand_num <= temp_sum:
 			return i
 	return 0
 
