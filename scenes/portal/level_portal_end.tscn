@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxhjepca7lp6d"]
 
 [ext_resource type="Texture2D" uid="uid://nloc56gs6j0q" path="res://scenes/portal/purple_body_square.png" id="1_0fuxb"]
-[ext_resource type="Script" path="res://scenes/portal/level_portal_end.gd" id="1_jcw4r"]
+[ext_resource type="Script" uid="uid://btnmo1m301cq6" path="res://scenes/portal/level_portal_end.gd" id="1_jcw4r"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="2_ovsx3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwm4p"]

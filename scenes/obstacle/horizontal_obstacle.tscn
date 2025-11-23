@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bcg73uuvxg8p6"]
 
-[ext_resource type="Script" path="res://scenes/obstacle/horizontal_obstacle.gd" id="1_p2j33"]
+[ext_resource type="Script" uid="uid://bl36qvo7w8mwk" path="res://scenes/obstacle/horizontal_obstacle.gd" id="1_p2j33"]
 [ext_resource type="Texture2D" uid="uid://cnp5ttq54lypj" path="res://scenes/obstacle/tile_0127.png" id="2_2gri6"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="3_ka6ro"]
 
@@ -23,7 +23,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bgabh"]
 _data = {
-"obstacle_spin": SubResource("Animation_fp01w")
+&"obstacle_spin": SubResource("Animation_fp01w")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gyxrl"]

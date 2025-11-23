@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b66owho30ei3m"]
 
-[ext_resource type="Script" path="res://scenes/manager/distance_manager.gd" id="1_funox"]
+[ext_resource type="Script" uid="uid://dwketpgn8tkvl" path="res://scenes/manager/distance_manager.gd" id="1_funox"]
 
 [node name="DistanceManager" type="Node"]
 script = ExtResource("1_funox")

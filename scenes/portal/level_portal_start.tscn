@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://uoweb5y1k8c2"]
 
-[ext_resource type="Script" path="res://scenes/portal/level_portal_start.gd" id="1_8uggn"]
+[ext_resource type="Script" uid="uid://b62r78fo3agey" path="res://scenes/portal/level_portal_start.gd" id="1_8uggn"]
 [ext_resource type="Texture2D" uid="uid://nloc56gs6j0q" path="res://scenes/portal/purple_body_square.png" id="2_aatd6"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="3_4lwul"]
 

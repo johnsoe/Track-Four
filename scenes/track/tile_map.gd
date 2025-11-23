@@ -27,6 +27,9 @@ func _ready():
 	edge_buffer = track_model.edge_buffer
 	total_width = (current_width * 2) + 1 + (edge_buffer * 2)
 	Events.begin_level_transition.connect(handle_level_update)
+	
+	for y in range(bottom_erase_row, top_draw_row - 1, -1):
+		draw_next_row(y)
 
 
 func _process(_delta):
@@ -86,11 +89,11 @@ func draw_transition_block(row: int):
 	top_draw_row -= 9
 	
 	for y in range(row, row - 4, -1):
-		set_row_as_barrier(y)
+		set_row_as_new_barrier(y)
 	
 	#gap for skybox
 	for y in range(row - 8, row - 12, -1):
-		set_row_as_barrier(y)
+		set_row_as_new_barrier(y)
 
 
 func draw_updated_row(row: int):
@@ -113,6 +116,20 @@ func draw_updated_row(row: int):
 				atlas_x += 1
 			atlas_coords = Vector2i(atlas_x, track)
 		set_cell(0, Vector2i(x + edge_buffer, row), 1, atlas_coords)
+
+
+func set_row_as_new_barrier(row: int):
+	# Left edge
+	for x in range(0, edge_buffer):
+		set_cell(0, Vector2i(x, row), 1, Vector2i(0, 4))
+	
+	# Right edge
+	for x in range(total_width - edge_buffer, total_width):
+		set_cell(0, Vector2i(x, row), 1, Vector2i(4, 4))
+		
+	# Center wall
+	for x in range(edge_buffer, total_width - edge_buffer):
+		set_cell(0, Vector2i(x, row), 1, Vector2i(2, 4))
 
 
 func set_row_as_barrier(row: int):

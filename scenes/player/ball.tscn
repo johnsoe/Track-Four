@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://w5y26n8l4ooa"]
 
-[ext_resource type="Script" path="res://scenes/player/player_ball.gd" id="1_2pulf"]
+[ext_resource type="Script" uid="uid://bls37todqvmew" path="res://scenes/player/player_ball.gd" id="1_2pulf"]
 [ext_resource type="Shader" uid="uid://b6yed13w4cc4e" path="res://scenes/player/player_vis_shader.tres" id="3_0y0lt"]
 [ext_resource type="Texture2D" uid="uid://damy7ao7ov8qn" path="res://scenes/player/blue_body_circle.png" id="4_sybhy"]
 [ext_resource type="PackedScene" uid="uid://bgglrxpxwxqas" path="res://scenes/player/legs/legs.tscn" id="5_ey0b4"]

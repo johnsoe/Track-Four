@@ -46,11 +46,11 @@ func spawn_obstacle():
 	if spawn_mode == ObstacleSpawnMode.ALL:
 		for i in range(current_level + 1):
 			var side = 1 if randi_range(0, 1) == 0 else -1
-			spawn_obstacle_for_track(i, side, 0)
+			spawn_obstacle_for_track(i, side)
 	elif spawn_mode == ObstacleSpawnMode.GAP:
 		for i in range(2):
 			var side = 1 if i == 0 else -1
-			spawn_obstacle_for_track(track, side, 0)
+			spawn_obstacle_for_track(track, side)
 	else:
 		var prev_spawn = track_position_spawn[track]
 		var side = prev_spawn if randi_range(0, 50) == 0 else prev_spawn * -1
@@ -97,7 +97,7 @@ func pull_index_from_weighted_array(arr):
 	var rand_num = randi_range(0, sum - 1)
 	for i in arr.size():
 		temp_sum += arr[i]
-		if rand_num <= temp_sum:
+		if rand_num < temp_sum:
 			return i
 	return 0
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dd31khm8ampde"]
 
-[ext_resource type="Script" path="res://scenes/ui/pause_controls.gd" id="1_elacp"]
+[ext_resource type="Script" uid="uid://dul6q5s1gp355" path="res://scenes/ui/pause_controls.gd" id="1_elacp"]
 [ext_resource type="StyleBox" uid="uid://mn0kgganpbci" path="res://scenes/ui/ui_style_box.tres" id="2_202kh"]
 
 [node name="PauseControls" type="Control"]

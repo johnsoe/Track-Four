@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://br3kawm6t5yve"]
 
-[ext_resource type="Script" path="res://scenes/ui/title_screen.gd" id="1_xivfn"]
+[ext_resource type="Script" uid="uid://de2kekydl05bt" path="res://scenes/ui/title_screen.gd" id="1_xivfn"]
 [ext_resource type="StyleBox" uid="uid://mn0kgganpbci" path="res://scenes/ui/ui_style_box.tres" id="1_y2sei"]
 
 [node name="TitleScreen" type="Control"]

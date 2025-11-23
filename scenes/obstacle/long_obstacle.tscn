@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://e7t84grp83de"]
 
-[ext_resource type="Script" path="res://scenes/obstacle/long_obstacle.gd" id="1_bohrp"]
+[ext_resource type="Script" uid="uid://cbdwq0lldafcc" path="res://scenes/obstacle/long_obstacle.gd" id="1_bohrp"]
 [ext_resource type="Texture2D" uid="uid://cnp5ttq54lypj" path="res://scenes/obstacle/tile_0127.png" id="1_g3p3w"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="2_66ger"]
 

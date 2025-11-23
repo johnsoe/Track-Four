@@ -62,5 +62,3 @@ func spawn_ball_for_track(track: int):
 
 func handle_end_portal_area_exited(track_id: int):
 	spawn_ball_for_track(track_id)
-
-

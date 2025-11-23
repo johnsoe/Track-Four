@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwy1yoam660i2"]
 
 [ext_resource type="Texture2D" uid="uid://cnp5ttq54lypj" path="res://scenes/obstacle/tile_0127.png" id="1_spqt7"]
-[ext_resource type="Script" path="res://scenes/obstacle/basic_obstacle.gd" id="1_w6sxl"]
+[ext_resource type="Script" uid="uid://bn35h0i2s8ufh" path="res://scenes/obstacle/basic_obstacle.gd" id="1_w6sxl"]
 [ext_resource type="PackedScene" uid="uid://dtlepi70k8ye2" path="res://scenes/components/velocity_component.tscn" id="2_8d2d0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82cy4"]

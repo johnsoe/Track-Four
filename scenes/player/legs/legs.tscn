@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bgglrxpxwxqas"]
 
 [ext_resource type="Texture2D" uid="uid://doolfox7ujt0y" path="res://scenes/player/legs/lb_leg.png" id="1_0h4o0"]
-[ext_resource type="Script" path="res://scenes/player/legs/legs.gd" id="1_vixvb"]
+[ext_resource type="Script" uid="uid://g0f6da8rvqi1" path="res://scenes/player/legs/legs.gd" id="1_vixvb"]
 
 [sub_resource type="Animation" id="Animation_4va4u"]
 length = 0.001
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_npwty"]
 _data = {
-"RESET": SubResource("Animation_4va4u"),
-"walk": SubResource("Animation_avmxn")
+&"RESET": SubResource("Animation_4va4u"),
+&"walk": SubResource("Animation_avmxn")
 }
 
 [node name="Legs" type="Node2D"]
@@ -47,7 +47,7 @@ distance_from_center = 32.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_npwty")
+&"": SubResource("AnimationLibrary_npwty")
 }
 
 [node name="Visuals" type="Node2D" parent="."]
